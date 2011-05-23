@@ -1,1 +1,20 @@
 Multi-Scale Multi-Modal File Format for Neuroscience based on HDF5
+
+NeuroHDF recommends a particular hierarchical layout of HDF5 and a minimal set
+of metadata attributes for multi-scale and multi-modal requirements.
+
+HDF5 Links
+----------
+* Main HDF Group page
+http://www.hdfgroup.org/
+
+* Python libraries
+http://code.google.com/p/h5py/
+http://www.pytables.org/moin
+
+* Java libraries
+http://www.ral.ucar.edu/~steves/nujan.html
+https://wiki-bsse.ethz.ch/display/JHDF5
+
+* Matlab
+http://www.mathworks.com/help/techdoc/ref/hdf5.html
