@@ -24,6 +24,45 @@ Define global metadata pertaining to the purpose and content of the dataset::
 
 You need to be very clear about the type of data you want to store.
 
+We represent the concept of a `spatial reference frame <>`_ in NeuroHDF as a *Region* HDF group node.
+A Region node specifies as its metadata attributes:
+
+* Coordinate system (origo and orientation), specified by an affine transformation (4D matrix)
+* Oriented bounding box
+* The semantics of origo
+* The semantics of he +/- axes direction
+
+A Region contains spatio-temporal datasets that are spatially transformed relative
+to the local coordinate system defined by the Region. The datasets are either
+regular or irregular . Regular datasets are fields defined on a regular grid, e.g.
+2D images or 3D volumes. Irregular datasets are fields defined on their vertices and/or
+their connectivity. Dataset group nodes specify metadata attributes:
+
+Irregular datasets
+* The affine transformation local to the Region they are contained in
+* The unit strings for all axes after transformation
+* An axis-aligned boundings box relative to the Region
+The semantics of the field on the irregular spatio-temporal datastructure
+is stored in the vertices/connectivity property node's metadata attributes.
+
+Mapping to irregular datasets are defined for:
+* 3D skeletons
+* 2D contours
+* M-to-N connectors with spatial location between skeletons
+* surface meshes
+* line strips (a special case of 3D skeletons)
+
+Regular datasets (Homogeneous nd-arrays)
+* The affine transformation from "voxel" space to Region space ?
+  (The scaling defines the resolution)
+* Need another affine?
+* The unit strings for all axes after transformation
+* An axis-aligned boundings box relative to the Region
+* The semantics of the axes (after or before transformation?)
+
+A distinction has to be made between the spatial datastructure that changes over time
+vs. the fields defined over the fixed spatial datastructures that change over time.
+
 What is the data model and philosophy adopted for NeuroHDF?
 
 Do you have ...

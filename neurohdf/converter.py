@@ -24,3 +24,4 @@ def nifti_to_neurohdf(h5file, niftifile, name):
     for k,v in hdr.items():
         h5file.attrs[k] = v
     h5file.attrs['affine'] = niftifile.get_affine()
+
