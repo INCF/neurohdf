@@ -6,12 +6,19 @@
 NeuroHDF documentation
 ======================
 
-Multi-Scale Multi-Modal File Format for Neuroscience based on HDF5
+NeuroHDF defines a hierarchical layout to represent multi-scale, multi-modal neuroscientific datasets based on HDF5.
+
+Neuroinformatics requires a flexible approach to store and exchange datasets consisting of binary and metadata for
+anatomy, physiology, behavior and simulation data on multiple spatial and temporal scales and across modalities.
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
+
+   hierarchy
+   cookbook
+
 
 Indices and tables
 ==================
