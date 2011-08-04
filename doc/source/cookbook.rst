@@ -1,10 +1,10 @@
 Cookbook
 ========
 
-We explain the data layout convention for several dataset use cases.
+Conventions are recommended for the hierarchical NeuroHDF layout of typical neuroscience datasets.
 
-1. 3D skeleton (e.g. neuronal morphology)
------------------------------------------
+1. 3D skeletons (e.g. neuronal morphologies)
+--------------------------------------------
 Spatial: Yes, N vertices with spatial location
 Temporal: No
 Generic: Label data on the vertices and connectivity
@@ -14,13 +14,29 @@ We stack multiple skeletons (tree topologies) where N vertices have a spatial lo
     Group["3D Skeletons"]
 
         Group["vertices"]
+        .attrs["affine"] : affine transformation, transforming the vertex locations
+        locatio: in supergroup, or in dataset alternatively
+
 
             Group["connectivity"]
-                Group["properties"]: dataset's first dimension must be M
-                    Dataset["labels"]
+
                 Group["grouping"]
                     Dataset["index"]: SkeletonID | FromIndex | ToIndex
+
+                Group["properties"] : dataset's first dimension must be M
+                    Dataset["labels"]
+
                 Dataset["data"] -> stores the connectivity between vertices in Mx2 array 0-indexed (global topology)
+                .attrs["semantics"] = {
+                    0 : {"name":"entities"},
+                    1 : {"name":"connections",
+                         "column" : {
+                            0 : {"name":"from"},
+                            1 : {"name":"to"},
+                         },
+                         "directed" : False
+                        }
+                }
 
             Group["grouping"]
                 Dataset["index"]: SkeletonID | FromIndex | ToIndex
@@ -31,7 +47,15 @@ We stack multiple skeletons (tree topologies) where N vertices have a spatial lo
             Group["properties"]: dataset's first dimension must be N
                 Dataset["labels"] -> Nx1 array of labels. JSON-encoded metadata string encodes semantics
                  .attrs["semantics"] = "{1 : {"name" : "axonal arbor"}, 2 : {"name" : "dendritic arbor"}, 3 : {"name" : "cell body"} }"
+
             Dataset["data"] -> stores spatial location in Nx3 array
+            .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
+                1 : {"name":"spatial location",
+                     "column": {
+                        0 : { "name" : "x", "unit" : ??/before and/or after transform? },
+                        1 : { "name" : "y", "unit" : ?? },
+                        2 : { "name" : "z", "unit" : ?? },
+                     } } }
 
 Example code to create the dataset node::
 
@@ -88,6 +112,112 @@ The number of vertices as well as the location changes over time. The connectivi
 --------------------------------------------------
 The number of vertices and location is constant, the number of connections is constant, but the connectivity properties
 change over time.
+
+An nd volumetric block
+----------------------
+3D spatial block with additional dimensions (time, channels, etc.)
+
+    Group["Regular block"]
+
+        Dataset["data"] -> nd array
+        .attrs["affine"]
+        .attrs["axes semantics"] = {
+            0 : {"name" : "x" },
+            1 : {"name" : "y" },
+            2 : {"name" : "z" },
+            3 : {"name" : "t" },
+            4 : {"name" : "r" },
+            5 : {"name" : "g" },
+            6 : {"name" : "b" }
+        }
+        when rotation occurs, semantics of pre/post transformation could be changed.
+        otherwise with only scaling and translation, they are expected to stay constant
+
+
+Set of 2D contours embedded in 3D space
+---------------------------------------
+
+Questions
+- Store 2D or 3D vertices?
+- If 3D, 3rd column would be the slice index (e.g. as int). the affine would transform to physical space
+- How to store connectivity? polygonlines vs. individual lines.
+need to store contours with holes?
+individual contours as group vs. set of contours making up a structure with id.
+
+    Group["Contours"]
+
+        Group["vertices"]
+        .attrs["affine"] : affine transformation, transforming the vertex locations
+
+            Group["connectivity"]
+                Group["grouping"]
+                    Dataset["index"]: ContourID | FromIndex | ToIndex | StructureID
+                Group["properties"] : dataset's first dimension must be M
+                    Dataset["labels"]
+                Dataset["data"] -> global topology of varying-length polygonlines
+
+                .attrs["semantics"] = {
+                    0 : {"name":"entities"},
+                    1 : {"name":"triangular faces","directed" : False
+                        }
+                }
+
+            Group["grouping"]
+                Dataset["index"]: StructureID | FromIndex | ToIndex
+                Group["properties"]
+                    Dataset["statistics"]: summary statistics for each surface structure
+
+            Group["properties"]: dataset's first dimension must be N
+                Dataset["labels"]
+                 .attrs["semantics"] = "{1 : {"name" : "axonal arbor"}, 2 : {"name" : "dendritic arbor"}, 3 : {"name" : "cell body"} }"
+
+            Dataset["data"]
+            .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
+                1 : {"name":"spatial location",
+                     "column": {
+                        0 : { "name" : "x", "unit" : ?? },
+                        1 : { "name" : "y", "unit" : ?? },
+                        2 : { "name" : "z", "unit" : ?? },
+                     } } }
+
+
+Set of 3D triangular surfaces
+-----------------------------
+
+    Group["3D Surfaces"]
+
+        Group["vertices"]
+        .attrs["affine"] : affine transformation, transforming the vertex locations
+
+            Group["connectivity"]
+                Group["grouping"]
+                    Dataset["index"]: StructureID | FromIndex | ToIndex
+                Group["properties"] : dataset's first dimension must be M
+                    Dataset["labels"]
+                Dataset["data"] -> global topology of triangular faces
+                .attrs["semantics"] = {
+                    0 : {"name":"entities"},
+                    1 : {"name":"triangular faces","directed" : False
+                        }
+                }
+
+            Group["grouping"]
+                Dataset["index"]: StructureID | FromIndex | ToIndex
+                Group["properties"]
+                    Dataset["statistics"]: summary statistics for each surface structure
+
+            Group["properties"]: dataset's first dimension must be N
+                Dataset["labels"]
+                 .attrs["semantics"] = "{1 : {"name" : "axonal arbor"}, 2 : {"name" : "dendritic arbor"}, 3 : {"name" : "cell body"} }"
+
+            Dataset["data"]
+            .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
+                1 : {"name":"spatial location",
+                     "column": {
+                        0 : { "name" : "x", "unit" : ?? },
+                        1 : { "name" : "y", "unit" : ?? },
+                        2 : { "name" : "z", "unit" : ?? },
+                     } } }
 
 Microcircuit
 ------------
