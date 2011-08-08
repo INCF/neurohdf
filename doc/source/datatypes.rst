@@ -1,12 +1,8 @@
-Real life scientific example datasets
--------------------------------------
+Real life neuroscientific example datasets
+------------------------------------------
 
-* Biophysically realistic simulation of voltage across a neuronal morphology
-  - Irregular 3D skeleton consisting of vertices and connectivity (segments)
-  - Properties on the vertices and/or segments such as ion channel distributions etc.
-  - Group of multiple trials with different initial condition and stimulation parameters
-    - (Segment, time) array with voltage values across time.
-    - (Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments
+Anatomy
+^^^^^^^
 
 * Reconstructed skeletonized microcircuitry from electron microscopy
   - Sets of irregular 3D skeletons in a spatial reference system
@@ -16,15 +12,40 @@ Real life scientific example datasets
   - Regular 3D grid segmenting the structures in a spatial reference system
   - Sets of area lists representing structures
 
-* Behavioral experiments of tracked animals moving on a 2D plate
-  - Irregular spatio-temporal data in a spatial reference system
-
-* Cell division, differentiation and migration data in 3D (lineages)
-
 * Confocal optical microcopy imaging
   - Sets of regular 2D grid images with multiple channels
 
+* Network of brain regions and their connectivity
+
+* Network of neurons and their connectivity (circuit diagram)
+
+* Network of neuron classes and their connection probability (circuit diagram)
+
+Simulation
+^^^^^^^^^^
+
+* Biophysically realistic simulation of voltage across a neuronal morphology
+  - Irregular 3D skeleton consisting of vertices and connectivity (segments)
+  - Properties on the vertices and/or segments such as ion channel distributions etc.
+  - Group of multiple trials with different initial condition and stimulation parameters
+    - (Segment, time) array with voltage values across time.
+    - (Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments
+
 * Spiking network simulation with point neurons
+
+Behavior
+^^^^^^^^
+
+* Behavioral experiments of tracked animals moving on a 2D plate
+  - Irregular spatio-temporal data in a spatial reference system
+
+Development
+^^^^^^^^^^^
+
+* Cell division, differentiation and migration data in 3D (lineages)
+
+Physiology
+^^^^^^^^^^
 
 * Neurophysiological extracellular recordings
   - Regular 2D grid (? non spatial) - in concepto-temporal system
@@ -32,15 +53,15 @@ Real life scientific example datasets
 
 * Neurophysiological intracellular recordings
 
+Genomics/Proteomics
+^^^^^^^^^^^^^^^^^^^
+
 * Gene expression array of genes assayed in a spatial volume
   for a particular genotypic state, physiological state, developmental stage,
   after perturbation with different set of parameters
 
-* Network of brain regions and their connectivity
-
-* Network of neurons and their connectivity (circuit diagram)
-
-* Network of neuron classes and their connection probability (circuit diagram)
+MRI neuroimaging
+^^^^^^^^^^^^^^^^
 
 * Functional MRI dataset
   - Regular 3D grid with time steps in spatial reference system
@@ -55,6 +76,6 @@ Real life scientific example datasets
   - Regular 3D grid in spatial reference system with a number of gradient directions
   - Parameters: bvalues, bvectors
 
-* Reconstructed surface of cortical and subcortical structures with atlas labels
+* Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
   - Irregular 3D dataset with vertices and triangular faces in spatial reference system
   - (labels,) array with the length of the vertices

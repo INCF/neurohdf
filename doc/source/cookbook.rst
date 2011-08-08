@@ -1,22 +1,21 @@
 Cookbook
 ========
 
-Conventions are recommended for the hierarchical NeuroHDF layout of typical neuroscience datasets.
+NeuroHDF conventions for structuring typical neuroscience datasets in HDF5 Group and Dataset nodes.
 
 1. 3D skeletons (e.g. neuronal morphologies)
 --------------------------------------------
-Spatial: Yes, N vertices with spatial location
-Temporal: No
-Generic: Label data on the vertices and connectivity
+Contains spatial data, namely N vertices with spatial location, but no temporal data.
+Properties such as label data exists on the vertices and connectivity.
+We stack multiple skeletons (tree topologies) with N vertices with spatial location and M connections.
 
-We stack multiple skeletons (tree topologies) where N vertices have a spatial location with M connections.
+NeuroHDF node::
 
     Group["3D Skeletons"]
 
         Group["vertices"]
         .attrs["affine"] : affine transformation, transforming the vertex locations
-        locatio: in supergroup, or in dataset alternatively
-
+        location?: in supergroup, or in dataset alternatively
 
             Group["connectivity"]
 
@@ -42,14 +41,19 @@ We stack multiple skeletons (tree topologies) where N vertices have a spatial lo
                 Dataset["index"]: SkeletonID | FromIndex | ToIndex
                 Group["properties"]: child dataset's first dimension must be equal to the number of first dimension of the "index" dataset
                     Dataset["statistics"]: summary statistics for each skeleton
-                     .attrs[""] -> named axes, named columns
+                    .attrs[""] -> named axes, named columns
 
             Group["properties"]: dataset's first dimension must be N
                 Dataset["labels"] -> Nx1 array of labels. JSON-encoded metadata string encodes semantics
-                 .attrs["semantics"] = "{1 : {"name" : "axonal arbor"}, 2 : {"name" : "dendritic arbor"}, 3 : {"name" : "cell body"} }"
+                .attrs["semantics"] = {
+                    1 : {"name" : "axonal arbor"},
+                    2 : {"name" : "dendritic arbor"},
+                    3 : {"name" : "cell body"}
+                }
 
             Dataset["data"] -> stores spatial location in Nx3 array
-            .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
+            .attrs["array_axes/dimension_semantics"] = {
+                0 : {"name":"entities"},
                 1 : {"name":"spatial location",
                      "column": {
                         0 : { "name" : "x", "unit" : ??/before and/or after transform? },
@@ -83,6 +87,8 @@ Example code to create the dataset node::
 
 Example code to create 3D skeleton dataset node from a set of SWC files::
 
+    ...code...
+
 A helper function to extract a subarray based on a given id using the index dataset of a grouping::
 
     def extract_array( grouping_index, dataset, value ):
@@ -113,26 +119,120 @@ The number of vertices as well as the location changes over time. The connectivi
 The number of vertices and location is constant, the number of connections is constant, but the connectivity properties
 change over time.
 
-An nd volumetric block
-----------------------
-3D spatial block with additional dimensions (time, channels, etc.)
+N-dimensional homogeneous dataset
+---------------------------------
+3D spatial block with additional dimensions (time, channels, etc.)::
+
+NeuroHDF node::
 
     Group["Regular block"]
 
         Dataset["data"] -> nd array
-        .attrs["affine"]
+        .attrs["affine"] -> 2d array, shape (4,4) because 3 spatial axes
+        .attrs["spatial axes selection"] = {
+            0 : "x",
+            1 : "y",
+            2 : "z",
+        }
         .attrs["axes semantics"] = {
-            0 : {"name" : "x" },
-            1 : {"name" : "y" },
-            2 : {"name" : "z" },
-            3 : {"name" : "t" },
-            4 : {"name" : "r" },
+            0 : {"name" : "t", "unit" : {"name": "millisecond", "OBO" : "UO:0000028"}, "sampling frequency" : 256 },
+            1 : {"name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            2 : {"name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            3 : {"name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            4 : {"name" : "r", "desc" : "Red channel measurement"  },
             5 : {"name" : "g" },
-            6 : {"name" : "b" }
+            6 : {"name" : "b" },
+            7 : {"name" : "trial" }
         }
         when rotation occurs, semantics of pre/post transformation could be changed.
         otherwise with only scaling and translation, they are expected to stay constant
 
+Set of 3D triangular surfaces
+-----------------------------
+
+NeuroHDF node::
+
+    Group["3D Surfaces"]
+
+        Group["vertices"]
+        .attrs["affine"] : affine transformation, transforming the vertex locations
+
+            Group["connectivity"]
+                Group["grouping"]
+                    Dataset["index"]: StructureID | FromIndex | ToIndex
+                Group["properties"] : dataset's first dimension must be M
+                    Dataset["labels"]
+                Dataset["data"] -> global topology of triangular faces. find local topology by subtracting min()
+                .attrs["semantics"] = {
+                    0 : {"name": "entities" },
+                    1 : {"name": "triangular faces", "directed" : False }
+                }
+
+            Group["grouping"]
+                Dataset["index"]: StructureID | FromIndex | ToIndex
+                Group["properties"]
+                    Dataset["statistics"]: summary statistics for each surface structure
+
+            Group["properties"]: dataset's first dimension must be N
+                Dataset["labels"]
+                .attrs["semantics"] = {
+                    1 : {"name" : "axonal arbor"},
+                    2 : {"name" : "dendritic arbor"},
+                    3 : {"name" : "cell body"}
+                }
+
+            Dataset["data"]
+            .attrs["array_axes/dimension_semantics"] = {
+                0 : {"name":"entities"},
+                1 : {"name":"spatial location",
+                     "column": {
+                        0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                     } } }
+
+Microcircuit
+------------
+Consisting of a set of 3D skeletons, connectors and connectivity between skeletons and connectors
+
+NeuroHDF node::
+
+    Group["Microcircuitry"]
+
+        Group["vertices"]
+
+            Group["connectivity"]
+                Group["grouping"] -> include pre and post connectivity in skeleton!
+                    Dataset["index"]: SkeletonID | FromIndex | ToIndex
+                Group["properties"]
+                    Dataset["type"]
+                    .attrs = {
+                        1 : "parent",
+                        2 : "presynaptic",
+                        3 : "postsynaptic"
+                    }
+                Dataset["data"] -> contains parent and connector relations
+
+            Group["grouping"] -> not include connector vertices in skeleton!
+                Dataset["index"]: SkeletonID | FromIndex | ToIndex
+
+            Group["properties"]
+                Dataset["type"]
+                .attrs = {
+                    1 : "skeleton vertex",
+                    2 : "connector vertex"
+                }
+                Dataset["connectortype"]
+                .attrs["semantics"] = {
+                    1 : {"name" : "Glutamatergic"},
+                    2 : {"name" : "GABAergic"}
+                }
+                Dataset["id"]
+
+            Dataset["data"] -> similar to 3D skeleton
+
+
+# Common data query: For a given skeleton (ID), show all incoming/outgoing connectors.
 
 Set of 2D contours embedded in 3D space
 ---------------------------------------
@@ -143,6 +243,8 @@ Questions
 - How to store connectivity? polygonlines vs. individual lines.
 need to store contours with holes?
 individual contours as group vs. set of contours making up a structure with id.
+
+NeuroHDF node::
 
     Group["Contours"]
 
@@ -175,96 +277,7 @@ individual contours as group vs. set of contours making up a structure with id.
             .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
                 1 : {"name":"spatial location",
                      "column": {
-                        0 : { "name" : "x", "unit" : ?? },
-                        1 : { "name" : "y", "unit" : ?? },
-                        2 : { "name" : "z", "unit" : ?? },
+                        0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
                      } } }
-
-
-Set of 3D triangular surfaces
------------------------------
-
-    Group["3D Surfaces"]
-
-        Group["vertices"]
-        .attrs["affine"] : affine transformation, transforming the vertex locations
-
-            Group["connectivity"]
-                Group["grouping"]
-                    Dataset["index"]: StructureID | FromIndex | ToIndex
-                Group["properties"] : dataset's first dimension must be M
-                    Dataset["labels"]
-                Dataset["data"] -> global topology of triangular faces
-                .attrs["semantics"] = {
-                    0 : {"name":"entities"},
-                    1 : {"name":"triangular faces","directed" : False
-                        }
-                }
-
-            Group["grouping"]
-                Dataset["index"]: StructureID | FromIndex | ToIndex
-                Group["properties"]
-                    Dataset["statistics"]: summary statistics for each surface structure
-
-            Group["properties"]: dataset's first dimension must be N
-                Dataset["labels"]
-                 .attrs["semantics"] = "{1 : {"name" : "axonal arbor"}, 2 : {"name" : "dendritic arbor"}, 3 : {"name" : "cell body"} }"
-
-            Dataset["data"]
-            .attrs["array_axes/dimension_semantics"] = { 0 : {"name":"entities"},
-                1 : {"name":"spatial location",
-                     "column": {
-                        0 : { "name" : "x", "unit" : ?? },
-                        1 : { "name" : "y", "unit" : ?? },
-                        2 : { "name" : "z", "unit" : ?? },
-                     } } }
-
-Microcircuit
-------------
-Consisting of a set of 3D skeletons, connectors and connectivity between skeletons and connectors
-
-    Group["Microcircuitry"]
-
-        # SOLUTION 1
-
-        Group["vertices"]
-        
-            Dataset["data"]
-            Group["properties"]
-                Dataset["type"]
-                .attrs = { 1 : "skeleton vertex", 2 : "connector vertex" }
-                
-            Group["connectivity"]
-                Dataset["data"] -> contains parent and connector relations
-                Group["properties"]
-                    Dataset["type"]
-                     .attrs = { 1 : "parent", 2 : "presynaptic", 3 : "postsynaptic" }
-                Group["grouping"] -> groups the pre and post connectivity to the skeleton!
-                    Dataset["index"]: SkeletonID | FromIndex | ToIndex
-
-
-        # SOLUTION 2
-
-        # A skeleton group as in example 1
-        Group["Skeletons"]
-            Group["vertices"]
-            ...
-
-        # A connector group
-        Group["Connectors"]
-            Group["vertices"]
-                Dataset["data"]
-                Group["properties"]
-                    Dataset["labels"]
-                     .attrs["semantics"] = "{1 : {"name" : "inhibitory"}, 2 : {"name" : "excitatory"} }"
-
-        # A skeleton vertex - connector join array using ids
-        Group["join"]
-            Dataset["connectivity"] : Skeleton vertex ID or index? | Connector vertex ID or index?
-            Group["properties"]
-                Dataset["strength"]
-                Dataset["synapsetype"]
-            Group["grouping"]
-                Dataset["index"] -> group joins according to skeleton id?
-
-        # Common data query: For a given skeleton (ID), show all incoming/outgoing connectors.

@@ -8,8 +8,8 @@ NeuroHDF documentation
 
 NeuroHDF defines a hierarchical layout to represent multi-scale, multi-modal neuroscientific datasets based on HDF5.
 
-Neuroinformatics requires a flexible approach to store and exchange datasets consisting of binary and metadata for
-anatomy, physiology, behavior and simulation data on multiple spatial and temporal scales and across modalities.
+Neuroinformatics requires a flexible approach to store and exchange anatomy, physiology, behavior and simulation data
+on multiple spatial and temporal scales and across modalities, consisting of binary and metadata for
 
 Contents:
 
@@ -19,6 +19,9 @@ Contents:
    hierarchy
    datatypes
    cookbook
+   region
+   time
+
 
 
 Indices and tables

@@ -18,9 +18,10 @@ Define global metadata pertaining to the purpose and content of the dataset::
     myfile.attrs["title"] = "A generic title"
     myfile.attrs["description"] = "A generic prose description of the content and purpose of the dataset"
     myfile.attrs["species"] = "The biological organism this dataset is representing in binomial form"
-    myfile.attrs["creator"] = "The creator of the dataset including email"
-    myfile.attrs["collaborators"] = "The collaborators related to the creation of the dataset"
-    myfile.attrs["references"] = "Citation or URL reference for this dataset"
+    myfile.attrs["species"] = {"name" : "Homo sapiens", "NCBI" : "ID...", desc : "..." }
+    myfile.attrs["dc:creator"] = "The creator of the dataset including email"
+    myfile.attrs["dc:collaborators"] = "The collaborators related to the creation of the dataset"
+    myfile.attrs["dc:references"] = "Citation or URL reference for this dataset"
 
 You need to be very clear about the type of data you want to store.
 
@@ -54,7 +55,7 @@ applies to the coordinate axes AFTER the affine transformation from its parent c
 Similarly, for the root-convention coordinate system, the meaning of the axes are:
 ( ("Right","Left"), ("Upwards","Downwards"), ("Forwards", "Backwards") )
 
-We need the Spatial Ontology IDs: http://obofoundry.org/cgi-bin/detail.cgi?id=spatial
+We use the `OBO Spatial Ontology <http://obofoundry.org/cgi-bin/detail.cgi?id=spatial>`_ as identifiers.
 
 The affine transformation not only specifies the orientation of the axes, but also the location of origo. This corresponds
 to the translation (the translational part of the affine) of origo from the root-convention coordinate system to the *Region* origo.
@@ -69,8 +70,7 @@ Furthermore, the metric unit for unity of each spatial direction is defined as a
 The axes units are important to know the unit for the axis-aligned bounding box values. Later, each dataset defines
 its own units for its object's spatial locations.
 
-Alternatively, we use the ID of the unit ontology: "UO:0000016" instead of "mm"
-http://www.obofoundry.org/cgi-bin/detail.cgi?id=unit
+We use the `OBO Units of measurements Ontology <http://www.obofoundry.org/cgi-bin/detail.cgi?id=unit>`_ where "mm" is "UO:0000016" for instance.
 
 TODO: How does this relate to the the scaling within the affine?
 
@@ -108,8 +108,8 @@ for the embedding within the *Region*.
     dataset.attrs["axis_1"] = 1
     dataset.attrs["axis_2"] = None
 
-or "first_axis" and the 0-based index. (0-base is by convention. To index into the array in NumPy arrays,
-this does not require a transformation. For MATLAB which is 1-base, the index needs to be incremented by one.)
+or "first_axis" and the 0-based index. (0-indexed is by convention. To index into the array in Python NumPy arrays,
+this does not require a transformation. For MATLAB which is 1-indexed, the index needs to be incremented by one)
 
 Alternatively, define a convention for the axes names:
 ("x", "y", "time", None, "zspace", "xfrequency", ...)
@@ -142,25 +142,3 @@ Regular datasets (Homogeneous nd-arrays)
 A distinction has to be made between the spatial datastructure that changes over time
 vs. the fields defined over the fixed spatial datastructures that change over time.
 
-What is the data model and philosophy adopted for NeuroHDF?
-
-Do you have ...
-
-    ..data in some spatial reference frame (i.e. there exists a well-defined origo and coordinate system)?
-        ..yes
-            ..is the underlying spatial structure of the data regular (on a grid) or irregular (vertices/connectivity)?
-
-            ..does one aspect of the data have temporal extension?
-                ..yes
-                ..no
-
-        ..no
-            ..does it have spatial structure?
-                ..yes
-                    Genetic Expression Profile
-                ..no
-                    ..do multiple timepoints exist for on aspect/does one aspect of the data have temporal extension?
-                        ..yes
-                            Dynamic Network/Graph
-                        ..no
-                            Static Network/Graph
