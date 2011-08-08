@@ -21,6 +21,7 @@ Contents:
    cookbook
    region
    time
+   references
 
 
 
