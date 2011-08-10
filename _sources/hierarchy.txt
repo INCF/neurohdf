@@ -1,0 +1,29 @@
+Hierarchical Layout: Global Metadata
+====================================
+
+A HDF5 file consist of a tree with group and dataset nodes. Each node can have attributes as key-value pairs.
+Please refer to the `h5py documentation <http://code.google.com/p/h5py/>`_ for an introduction to the concepts
+and manipulation of HDF5 files.
+
+In the following, we describe the way data is structured and laid-out as a NeuroHDF file using h5py. We make here
+a proposal for a basic layout and core attributes, that can be customized.
+
+First, we create a writable NeuroHDF file::
+
+    import h5py
+    myfile = h5py.File('firstfile.neurohdf')
+
+Define global metadata pertaining to the purpose and content of the dataset::
+
+    myfile.attrs["title"] = "A generic title"
+    myfile.attrs["description"] = "A generic prose description of the content and purpose of the dataset"
+    myfile.attrs["species"] = "The biological organism this dataset is representing in binomial form"
+    myfile.attrs["species"] = {"name" : "Homo sapiens", "NCBI" : "ID...", desc : "..." }
+    myfile.attrs["creator"] = "The creator of the dataset including email"
+    myfile.attrs["collaborators"] = "The collaborators related to the creation of the dataset"
+    myfile.attrs["references"] = "Citation or URL reference for this dataset"
+
+In NeuroHDF, two classes of datasets are defined: a) spatio-temporal datasets
+mapped to a spatial reference system, and b) generic datasets with data schema as metadata.
+
+We first discuss the `Region`, which is the unifying reference system for spatio-temporal datasets.

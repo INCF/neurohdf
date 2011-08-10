@@ -1,0 +1,130 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamic datasets &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
+    <link rel="next" title="Supported Libraries" href="evaluatehdf.html" />
+    <link rel="prev" title="The Region" href="region.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="evaluatehdf.html" title="Supported Libraries"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="region.html" title="The Region"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dynamic-datasets">
+<h1>Dynamic datasets<a class="headerlink" href="#dynamic-datasets" title="Permalink to this headline">¶</a></h1>
+<p>When the time evolution does not change the dimensionality of the dataset, add time as another dimension to
+the data array. If it does change, introduce scaffolding timepoint group nodes for each time step.
+For variably distanced time steps, it is up to the user/developer to store an property array with the
+time points vs. creating a timepoint scaffold for each timestep with the appropriate metadata information
+about the occurrences. In the scaffolding case, it is suggested to define an identity map between the dimensions
+adjoining the different time points, best with an increasing integer id. Mixing of both types of representation
+should be possible.</p>
+<p>Storing my regular grid of data points</p>
+<dl class="docutils">
+<dt>Group &lt;SpatioTemporalOrigo&gt;: Metadata: rotation&amp;scale + offset (identity)</dt>
+<dd><dl class="first last docutils">
+<dt>Group &lt;Grid/regular&gt;: Metadata: affine transformation</dt>
+<dd><p class="first">Dataset &lt;data&gt;</p>
+<dl class="last docutils">
+<dt>Group &lt;timeslices&gt;</dt>
+<dd>Dataset &lt;t0&gt;
+Dataset &lt;t1&gt;
+...</dd>
+<dt>Group &lt;slice_t0&gt;</dt>
+<dd>Dataset &lt;data&gt;</dd>
+<dt>Group &lt;slice_t1&gt;</dt>
+<dd>Dataset &lt;data&gt;</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="region.html"
+                        title="previous chapter">The Region</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="evaluatehdf.html"
+                        title="next chapter">Supported Libraries</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="evaluatehdf.html" title="Supported Libraries"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="region.html" title="The Region"
+             >previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

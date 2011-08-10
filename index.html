@@ -1,77 +1,122 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
 
-  <title>unidesigner/neurohdf @ GitHub</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #a8fdcd;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #570232; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #570232; }
-    h3 { text-align: center; color: #570232; }
-    a { color: #570232; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>NeuroHDF documentation &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="#" />
+    <link rel="next" title="Variety of neuroscience dataset types" href="datatypes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="datatypes.html" title="Variety of neuroscience dataset types"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
 
-<body>
-  <a href="http://github.com/unidesigner/neurohdf"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="neurohdf-documentation">
+<h1>NeuroHDF documentation<a class="headerlink" href="#neurohdf-documentation" title="Permalink to this headline">¶</a></h1>
+<p><cite>What if all neuroscientific datasets were stored in an HDF5 data container by a shared convention among
+instrumentation manufacturers, software tool developers, and scientists?</cite></p>
+<p>On the most basic level, measured and simulated data can be divided into the <strong>sequence of recorded symbols</strong> (usually
+numbers in binary representation), and <strong>metadata</strong> - information about the structure of the binary data, and data
+provenance such as instrumentation and simulation parameters (usually as strings). Almost all file formats basically
+represent a variation on this theme, basically defining the layout of the binary data stream and a selection of
+metadata attributes deemed relevant from a particular perspective or interest group.</p>
+<p>When it comes to exchange of data, between scientists or software tools, a common practice is to use text files when
+no importers/exporters/converters for the required file formats are available. For large datasets, this approach
+is bound to fail and some sort of binary format that allows random access of the data is required. Furthermore,
+all the metadata orginally available should be preserved.</p>
+<p>Neuroscience has to manage and integrate data from anatomy, physiology, behavior and simulation data
+on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data are
+to be produced in the coming decades - and a viable solution is to use prove approaches to deal with this data deluge.</p>
+<p>The aim of NeuroHDF is <strong>NOT</strong> to create yet another file format. Its goal is to propose a convention of how to express
+metadata for generic datasets, settle on a small set of metadata fields for a variety of application domains,
+and provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying geometry.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Variety of neuroscience dataset types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Hierarchical Layout: Global Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="region.html">The Region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook - Spatio-Temporal datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbookgeneric.html">Cookbook - Generic datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluatehdf.html">Evaluation of HDF5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Further reading</a></li>
+</ul>
+</div>
+</div>
 
-  <div id="container">
 
-    <div class="download">
-      <a href="http://github.com/unidesigner/neurohdf/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/unidesigner/neurohdf/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/unidesigner/neurohdf">NeuroHDF</a>
-      <span class="small">by <a href="http://github.com/unidesigner">unidesigner</a></span></h1>
-
-    <div class="description">
-      Multi-Scale Multi-Modal File Format for Neuroscience based on HDF5
-    </div>
-
-    <h2>Authors</h2>
-<p>Stephan Gerhard (git@unidesign.ch)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Stephan Gerhard (git@unidesign.ch)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/unidesigner/neurohdf/zipball/master">zip</a> or
-      <a href="http://github.com/unidesigner/neurohdf/tarball/master">tar</a> formats.
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="datatypes.html"
+                        title="next chapter">Variety of neuroscience dataset types</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
     </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/unidesigner/neurohdf</pre>
-    </p>
-
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="datatypes.html" title="Variety of neuroscience dataset types"
+             >next</a> |</li>
+        <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
     <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/unidesigner/neurohdf">unidesigner/neurohdf</a>
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
-
-  </div>
-
-  
-</body>
+  </body>
 </html>
