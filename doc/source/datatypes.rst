@@ -1,19 +1,25 @@
-Real life neuroscientific example datasets
-------------------------------------------
+Variety of neuroscience dataset types
+-------------------------------------
+
+If you think a basic dataset type is missing, `please let us know <https://github.com/unidesigner/neurohdf/issues/1>`_!
 
 Anatomy
 ^^^^^^^
 
 * Reconstructed skeletonized microcircuitry from electron microscopy
-  - Sets of irregular 3D skeletons in a spatial reference system
-  - Sets of connectors with location representing synapses connecting vertices of the 3D skeletons
+
+  * Sets of irregular 3D skeletons in a spatial reference system
+  * Sets of connectors with location representing synapses connecting vertices of the 3D skeletons
 
 * Full volume neuropile reconstruction from electron microscopy
-  - Regular 3D grid segmenting the structures in a spatial reference system
-  - Sets of area lists representing structures
+
+  * Regular 3D grid segmenting the structures in a spatial reference system
+  * Sets of area lists representing structures
+  * Sets of surface meshes representing structures
 
 * Confocal optical microcopy imaging
-  - Sets of regular 2D grid images with multiple channels
+
+  * Sets of regular 2D grid images with multiple channels
 
 * Network of brain regions and their connectivity
 
@@ -25,11 +31,13 @@ Simulation
 ^^^^^^^^^^
 
 * Biophysically realistic simulation of voltage across a neuronal morphology
-  - Irregular 3D skeleton consisting of vertices and connectivity (segments)
-  - Properties on the vertices and/or segments such as ion channel distributions etc.
-  - Group of multiple trials with different initial condition and stimulation parameters
-    - (Segment, time) array with voltage values across time.
-    - (Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments
+
+  * Irregular 3D skeleton consisting of vertices and connectivity (segments)
+  * Properties on the vertices and/or segments such as ion channel distributions etc.
+  * Group of multiple trials with different initial condition and stimulation parameters
+
+    * (Segment, time) array with voltage values across time.
+    * (Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments
 
 * Spiking network simulation with point neurons
 
@@ -37,19 +45,23 @@ Behavior
 ^^^^^^^^
 
 * Behavioral experiments of tracked animals moving on a 2D plate
-  - Irregular spatio-temporal data in a spatial reference system
+
+  * Irregular spatio-temporal data in a spatial reference system
+
+* Questionnaire results
 
 Development
 ^^^^^^^^^^^
 
-* Cell division, differentiation and migration data in 3D (lineages)
+* Cell lineages: Cell division, differentiation and migration data in 3D
 
 Physiology
 ^^^^^^^^^^
 
 * Neurophysiological extracellular recordings
-  - Regular 2D grid (? non spatial) - in concepto-temporal system
-  - (Unit, time) array of voltage traces
+
+  * Regular 2D grid (? non spatial) - in concepto-temporal system
+  * (Unit, time) array of voltage traces
 
 * Neurophysiological intracellular recordings
 

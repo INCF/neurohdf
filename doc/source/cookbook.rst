@@ -1,13 +1,73 @@
-Cookbook
-========
+Cookbook - Spatio-Temporal datasets
+===================================
 
-NeuroHDF conventions for structuring typical neuroscience datasets in HDF5 Group and Dataset nodes.
+This page introduces NeuroHDF convention for the hierarchical layout of spatio-temporal datasets (datasets
+with underlying geometry) that can be an element of a `Region`. A description of the usage of HDF5 Groups
+and Dataset nodes is given.
 
-1. 3D skeletons (e.g. neuronal morphologies)
---------------------------------------------
+.. note::
+   For metadata attributes, 0-indexed is by convention. In Python to index into the NumPy arrays,
+   the indices do not require a transformation. For MATLAB which is 1-indexed the indices need to be incremented by one.
+
+Regular datasets
+----------------
+
+N-dimensional contiguous, homogeneous dataset
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A data block with at least one spatial dimension. It may have temporal dimensions. There are usually
+additional dimensions (trials, channels, subjects etc.).
+
+Examples:
+
+* Microscopy where measurement sensors are on a regular grid
+* 2D pixel-based slices
+
+Open Questions:
+
+* The affine transformation from "voxel" space to Region space ?
+  (The scaling defines the resolution)
+* When rotation occurs in the affine transformation, the semantics of pre/post transformation could be changed.
+  Otherwise, with only scaling and translation, they are expected to stay invariant
+
+NeuroHDF node::
+
+    Group["Regular data block"]
+
+        Dataset["data"] -> nd array
+        .attrs["affine"] -> 2d array, shape (4,4) because 3 spatial axes
+        .attrs["axes_selector_spatial"] = {
+            0 : "x",
+            1 : "y",
+            2 : "z",
+        }
+        .attrs["axes_selector_temporal"] = {
+            0 : "t"
+        }
+        .attrs["axes_semantics"] = {
+            0 : {"name" : "t", "unit" : {"name": "millisecond", "OBO" : "UO:0000028"}, "sampling frequency" : 256 },
+            1 : {"name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            2 : {"name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            3 : {"name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+            4 : {"name" : "r", "desc" : "Red channel measurement"  },
+            5 : {"name" : "g" },
+            6 : {"name" : "b" },
+            7 : {"name" : "trial" }
+        }
+
+
+
+Irregular datasets
+------------------
+
+3D skeleton
+^^^^^^^^^^^
 Contains spatial data, namely N vertices with spatial location, but no temporal data.
 Properties such as label data exists on the vertices and connectivity.
 We stack multiple skeletons (tree topologies) with N vertices with spatial location and M connections.
+
+Examples:
+
+* cellular morphologies (skeletonized)
 
 NeuroHDF node::
 
@@ -106,49 +166,21 @@ A helper function to extract a subarray based on a given id using the index data
         toidx = idx[validx, 2]
         return dataset[fromidx:(toidx+1),:]
 
-3D skeletons with changing vertices location
---------------------------------------------
+... with changing vertices location
+```````````````````````````````````
 The vertices location changes over time, but not the number of vertices. The connectivity stays the same.
 
-3D skeletons with changing vertices location and number
--------------------------------------------------------
+... with changing vertices location and number
+``````````````````````````````````````````````
 The number of vertices as well as the location changes over time. The connectivity has to be defined for each time frame as well.
 
-3D skeletons with changing connectivity properties
---------------------------------------------------
+... with changing connectivity properties
+`````````````````````````````````````````
 The number of vertices and location is constant, the number of connections is constant, but the connectivity properties
 change over time.
 
-N-dimensional homogeneous dataset
----------------------------------
-3D spatial block with additional dimensions (time, channels, etc.)::
-
-NeuroHDF node::
-
-    Group["Regular block"]
-
-        Dataset["data"] -> nd array
-        .attrs["affine"] -> 2d array, shape (4,4) because 3 spatial axes
-        .attrs["spatial axes selection"] = {
-            0 : "x",
-            1 : "y",
-            2 : "z",
-        }
-        .attrs["axes semantics"] = {
-            0 : {"name" : "t", "unit" : {"name": "millisecond", "OBO" : "UO:0000028"}, "sampling frequency" : 256 },
-            1 : {"name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-            2 : {"name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-            3 : {"name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-            4 : {"name" : "r", "desc" : "Red channel measurement"  },
-            5 : {"name" : "g" },
-            6 : {"name" : "b" },
-            7 : {"name" : "trial" }
-        }
-        when rotation occurs, semantics of pre/post transformation could be changed.
-        otherwise with only scaling and translation, they are expected to stay constant
-
 Set of 3D triangular surfaces
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 NeuroHDF node::
 
@@ -192,8 +224,12 @@ NeuroHDF node::
                      } } }
 
 Microcircuit
-------------
+^^^^^^^^^^^^
 Consisting of a set of 3D skeletons, connectors and connectivity between skeletons and connectors
+
+Examples:
+
+* Skeletonized reconstructions from electron microscopy, e.g. with `CATMAID <https://github.com/acardona/CATMAID>`_
 
 NeuroHDF node::
 
@@ -235,14 +271,15 @@ NeuroHDF node::
 # Common data query: For a given skeleton (ID), show all incoming/outgoing connectors.
 
 Set of 2D contours embedded in 3D space
----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Questions
-- Store 2D or 3D vertices?
-- If 3D, 3rd column would be the slice index (e.g. as int). the affine would transform to physical space
-- How to store connectivity? polygonlines vs. individual lines.
-need to store contours with holes?
-individual contours as group vs. set of contours making up a structure with id.
+Open Questions:
+
+* Store 2D or 3D vertices?
+* If 3D, 3rd column would be the slice index (e.g. as int). the affine would transform to physical space
+* How to store connectivity? polygonlines vs. individual lines.
+* need to store contours with holes?
+* individual contours as group vs. set of contours making up a structure with id.
 
 NeuroHDF node::
 
@@ -281,3 +318,38 @@ NeuroHDF node::
                         1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
                         2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
                      } } }
+
+Dynamic datasets
+----------------
+
+When the time evolution does not change the dimensionality of the dataset, add time as another dimension to
+the data array. If it does change, introduce scaffolding timepoint group nodes for each time step.
+For variably distanced time steps, it is up to the user/developer to store an property array with the
+time points vs. creating a timepoint scaffold for each timestep with the appropriate metadata information
+about the occurrences. In the scaffolding case, it is suggested to define an identity map between the dimensions
+adjoining the different time points, best with an increasing integer id. Mixing of both types of representation
+should be possible.
+
+Storing my regular grid of data points
+
+NeuroHDF node::
+
+    Group <SpatioTemporalOrigo>: Metadata: rotation&scale + offset (identity)
+        Group <Grid/regular>: Metadata: affine transformation
+            Dataset <data>
+
+            Group <timeslices>
+                Dataset <t0>
+                Dataset <t1>
+                ...
+
+            or
+
+            Group <slice_t0>
+                Dataset <data>
+            Group <slice_t1>
+                Dataset <data>
+            ....
+
+A distinction has to be made between the spatial datastructure that changes over time
+vs. the fields defined over the fixed spatial datastructures that change over time.

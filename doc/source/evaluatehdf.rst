@@ -1,4 +1,7 @@
-* Main HDF Group page
+Evaluation of HDF5
+==================
+
+Main HDF Group page
 http://www.hdfgroup.org/
 
 Supported Libraries
