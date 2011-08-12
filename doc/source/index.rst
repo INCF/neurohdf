@@ -40,3 +40,4 @@ Contents:
    cookbookgeneric
    evaluatehdf
    references
+   contact
