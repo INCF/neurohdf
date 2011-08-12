@@ -1,0 +1,132 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Nifti1 image volume to NeuroHDF regular dataset &mdash; NeuroHDF v documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v documentation" href="index.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17713054-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script');
+   ga.src = ('https:' == document.location.protocol ?
+             'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   ga.setAttribute('async', 'true');
+   document.documentElement.firstChild.appendChild(ga);
+ })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="nifti1-image-volume-to-neurohdf-regular-dataset">
+<h1>Nifti1 image volume to NeuroHDF regular dataset<a class="headerlink" href="#nifti1-image-volume-to-neurohdf-regular-dataset" title="Permalink to this headline">¶</a></h1>
+<p>Use Python library: Nibabel:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">nibabel</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">nibabel</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;myfile.nii.gz&#39;</span><span class="p">)</span>
+<span class="n">hf</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s">&#39;/tmp/test.neurohdf&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_neurohdf_group</span><span class="p">(</span> <span class="n">h5file</span><span class="p">,</span> <span class="n">regionpath</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="s">&#39;regular&#39;</span> <span class="p">):</span>
+    <span class="n">gr</span> <span class="o">=</span> <span class="n">h5file</span><span class="p">[</span><span class="n">regionpath</span><span class="p">]</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span> <span class="n">name</span> <span class="p">)</span>
+    <span class="n">gr</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;RegularDataset&quot;</span>
+    <span class="k">return</span> <span class="n">gr</span>
+
+<span class="n">regulargroup</span> <span class="o">=</span> <span class="n">create_neurohdf_group</span><span class="p">(</span><span class="n">hf</span><span class="p">,</span> <span class="s">&quot;/Region1&quot;</span><span class="p">,</span> <span class="s">&quot;MyFile&quot;</span><span class="p">)</span>
+
+<span class="n">regulargroup</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span> <span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">niftifile</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">hdr</span> <span class="o">=</span> <span class="n">niftifile</span><span class="o">.</span><span class="n">get_header</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">hdr</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">h5file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&quot;nifti1_&quot;</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+<span class="n">h5file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;nifti1_affine&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">niftifile</span><span class="o">.</span><span class="n">get_affine</span><span class="p">()</span>
+<span class="n">h5file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&#39;affine&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">niftifile</span><span class="o">.</span><span class="n">get_affine</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tractographies-to-neurohdf-irregular-dataset">
+<h1>Tractographies to NeuroHDF irregular dataset<a class="headerlink" href="#tractographies-to-neurohdf-irregular-dataset" title="Permalink to this headline">¶</a></h1>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Nifti1 image volume to NeuroHDF regular dataset</a></li>
+<li><a class="reference internal" href="#tractographies-to-neurohdf-irregular-dataset">Tractographies to NeuroHDF irregular dataset</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -28,6 +28,13 @@ The aim of NeuroHDF is **NOT** to create yet another file format. Its goal is to
 metadata for generic datasets, settle on a small set of metadata fields for a variety of application domains,
 and provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying geometry.
 
+See also `the Blog post <http://finchtalk.geospiza.com/2008/02/case-for-hdf.html>`_ about the reasoning behind BioHDF
+for large volumes of next generation sequencing data. And the `introduction into BioHDF <http://finchtalk.geospiza.com/2009/03/introducing-biohdf.html>`_
+
+.. Sydney Brenner, 2002 Nobel Prize winner said (Bradford, 2003):
+.. "We now have unprecedented ability to collect data about nature but there is now a crisis developing in biology, in that completely unstructured information does not enhance understanding. We need a framework to put all of this knowledge and data into — that is going to be the problem in biology. We've reached the stage where we can't talk to each other — we've all become highly specialized. We need a framework, a framework where people can come back to us and say, 'Yes, I understand.' Driving toward that framework is really the big challenge."
+
+
 Contents:
 
 .. toctree::
@@ -40,3 +47,4 @@ Contents:
    cookbookgeneric
    evaluatehdf
    references
+   contact

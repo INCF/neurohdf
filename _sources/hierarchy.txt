@@ -24,6 +24,6 @@ Define global metadata pertaining to the purpose and content of the dataset::
     myfile.attrs["references"] = "Citation or URL reference for this dataset"
 
 In NeuroHDF, two classes of datasets are defined: a) spatio-temporal datasets
-mapped to a spatial reference system, and b) generic datasets with data schema as metadata.
+mapped to a spatial reference system, and b) generic datasets including a data schema as metadata.
 
 We first discuss the `Region`, which is the unifying reference system for spatio-temporal datasets.

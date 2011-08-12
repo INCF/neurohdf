@@ -6,13 +6,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Evaluation of HDF5 &mdash; NeuroHDF v0.1 documentation</title>
+    <title>Evaluation of HDF5 &mdash; NeuroHDF v documentation</title>
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1',
+        VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,9 +21,26 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
-    <link rel="next" title="&lt;no title&gt;" href="references.html" />
-    <link rel="prev" title="Dynamic datasets" href="time.html" /> 
+    <link rel="top" title="NeuroHDF v documentation" href="index.html" />
+    <link rel="next" title="Further reading" href="references.html" />
+    <link rel="prev" title="Cookbook - Generic datasets" href="cookbookgeneric.html" />
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17713054-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script');
+   ga.src = ('https:' == document.location.protocol ?
+             'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   ga.setAttribute('async', 'true');
+   document.documentElement.firstChild.appendChild(ga);
+ })();
+
+</script>
+
   </head>
   <body>
     <div class="related">
@@ -33,12 +50,12 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="references.html" title="&lt;no title&gt;"
+          <a href="references.html" title="Further reading"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="time.html" title="Dynamic datasets"
+          <a href="cookbookgeneric.html" title="Cookbook - Generic datasets"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,30 +68,50 @@
 <h1>Evaluation of HDF5<a class="headerlink" href="#evaluation-of-hdf5" title="Permalink to this headline">¶</a></h1>
 <p>Main HDF Group page
 <a class="reference external" href="http://www.hdfgroup.org/">http://www.hdfgroup.org/</a></p>
-<div class="section" id="supported-libraries">
-<h2>Supported Libraries<a class="headerlink" href="#supported-libraries" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Python libraries</li>
-</ul>
+<div class="section" id="supported-libraries-bindings">
+<h2>Supported Libraries/Bindings<a class="headerlink" href="#supported-libraries-bindings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python-libraries">
+<h3>Python libraries<a class="headerlink" href="#python-libraries" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://code.google.com/p/h5py/">http://code.google.com/p/h5py/</a>
 <a class="reference external" href="http://www.pytables.org/moin">http://www.pytables.org/moin</a></p>
-<ul class="simple">
-<li>Java libraries</li>
-</ul>
+</div>
+<div class="section" id="java-libraries">
+<h3>Java libraries<a class="headerlink" href="#java-libraries" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.ral.ucar.edu/~steves/nujan.html">http://www.ral.ucar.edu/~steves/nujan.html</a>
 <a class="reference external" href="https://wiki-bsse.ethz.ch/display/JHDF5">https://wiki-bsse.ethz.ch/display/JHDF5</a></p>
-<ul class="simple">
-<li>Matlab</li>
-</ul>
+</div>
+<div class="section" id="matlab">
+<h3>Matlab<a class="headerlink" href="#matlab" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.mathworks.com/help/techdoc/ref/hdf5.html">http://www.mathworks.com/help/techdoc/ref/hdf5.html</a></p>
-<ul class="simple">
-<li>R bindings</li>
-</ul>
+</div>
+<div class="section" id="r-bindings">
+<h3>R bindings<a class="headerlink" href="#r-bindings" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://r-forge.r-project.org/projects/h5r/">https://r-forge.r-project.org/projects/h5r/</a></p>
-<ul class="simple">
-<li>.NET</li>
-</ul>
+</div>
+<div class="section" id="net">
+<h3>.NET<a class="headerlink" href="#net" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.hdfgroup.org/projects/hdf.net/">http://www.hdfgroup.org/projects/hdf.net/</a></p>
+</div>
+</div>
+<div class="section" id="advantages-of-using-hdf5">
+<h2>Advantages of using HDF5<a class="headerlink" href="#advantages-of-using-hdf5" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Compact binary data storage, extensible metadata</li>
+<li>Fast random and parallel access, efficient, scalable</li>
+<li>Widely used in High Performance Computing</li>
+<li>Open source and cross-platform</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="possible-limitations-of-hdf5">
+<h2>Possible limitations of HDF5<a class="headerlink" href="#possible-limitations-of-hdf5" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Difficulty to store variable-length string properties.</li>
+<li>Deleting a dataset does not free the space on disk. Requires rewriting the file.</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 
@@ -87,17 +124,26 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Evaluation of HDF5</a><ul>
-<li><a class="reference internal" href="#supported-libraries">Supported Libraries</a></li>
+<li><a class="reference internal" href="#supported-libraries-bindings">Supported Libraries/Bindings</a><ul>
+<li><a class="reference internal" href="#python-libraries">Python libraries</a></li>
+<li><a class="reference internal" href="#java-libraries">Java libraries</a></li>
+<li><a class="reference internal" href="#matlab">Matlab</a></li>
+<li><a class="reference internal" href="#r-bindings">R bindings</a></li>
+<li><a class="reference internal" href="#net">.NET</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#advantages-of-using-hdf5">Advantages of using HDF5</a></li>
+<li><a class="reference internal" href="#possible-limitations-of-hdf5">Possible limitations of HDF5</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
-  <p class="topless"><a href="time.html"
-                        title="previous chapter">Dynamic datasets</a></p>
+  <p class="topless"><a href="cookbookgeneric.html"
+                        title="previous chapter">Cookbook - Generic datasets</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="references.html"
-                        title="next chapter">&lt;no title&gt;</a></p>
+                        title="next chapter">Further reading</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -122,12 +168,12 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="references.html" title="&lt;no title&gt;"
+          <a href="references.html" title="Further reading"
              >next</a> |</li>
         <li class="right" >
-          <a href="time.html" title="Dynamic datasets"
+          <a href="cookbookgeneric.html" title="Cookbook - Generic datasets"
              >previous</a> |</li>
-        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
