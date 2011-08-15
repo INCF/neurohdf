@@ -50,6 +50,7 @@ Behavior
 
 * Questionnaire results
 
+
 Development
 ^^^^^^^^^^^
 
@@ -64,6 +65,10 @@ Physiology
   * (Unit, time) array of voltage traces
 
 * Neurophysiological intracellular recordings
+
+* Spectro-temporal receptive fields
+
+* Functions: Intensity-response function of neurons, Tuning curves, ...
 
 Genomics/Proteomics
 ^^^^^^^^^^^^^^^^^^^

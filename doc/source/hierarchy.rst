@@ -23,6 +23,9 @@ Define global metadata pertaining to the purpose and content of the dataset::
     myfile.attrs["collaborators"] = "The collaborators related to the creation of the dataset"
     myfile.attrs["references"] = "Citation or URL reference for this dataset"
 
+Potentially, XML documents can be integrated into NeuroHDF when storing them as a one-dimensional byte-array.
+Software libraries would be required to parse and update metadata stored in such a way.
+
 In NeuroHDF, two classes of datasets are defined: a) spatio-temporal datasets
 mapped to a spatial reference system, and b) generic datasets with data schema as metadata.
 
