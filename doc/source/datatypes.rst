@@ -11,7 +11,7 @@ Anatomy
   * Sets of irregular 3D skeletons in a spatial reference system
   * Sets of connectors with location representing synapses connecting vertices of the 3D skeletons
 
-* Full volume neuropile reconstruction from electron microscopy
+* Dense reconstruction of neuropile from electron microscopy
 
   * Regular 3D grid segmenting the structures in a spatial reference system
   * Sets of area lists representing structures
@@ -77,8 +77,8 @@ Genomics/Proteomics
   for a particular genotypic state, physiological state, developmental stage,
   after perturbation with different set of parameters
 
-MRI neuroimaging
-^^^^^^^^^^^^^^^^
+Neuroimaging
+^^^^^^^^^^^^
 
 * Functional MRI dataset
   - Regular 3D grid with time steps in spatial reference system
@@ -96,3 +96,9 @@ MRI neuroimaging
 * Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
   - Irregular 3D dataset with vertices and triangular faces in spatial reference system
   - (labels,) array with the length of the vertices
+
+* EEG dataset
+
+* MEG dataset
+
+* NIRS dataset
