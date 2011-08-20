@@ -29,4 +29,4 @@ Software libraries would be required to parse and update metadata stored in such
 In NeuroHDF, two classes of datasets are defined: a) spatio-temporal datasets
 mapped to a spatial reference system, and b) generic datasets with data schema as metadata.
 
-We first discuss the `Region`, which is the unifying reference system for spatio-temporal datasets.
+We first discuss the :ref:`region`, which is the unifying reference system for spatio-temporal datasets.

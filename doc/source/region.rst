@@ -1,3 +1,5 @@
+.. _region:
+
 The Region
 ----------
 
@@ -93,4 +95,4 @@ number of dimensions, but it requires to have at least one spatial dimension to 
 of a *Region*. For the affine of a Regular dataset, only the spatial dimension of the array are relevant
 for the embedding within the *Region*.
 
-See the next section `Cookbook - Spatio-Temporal datasets`_ for details on the dataset representation.
+See section :ref:`spatiotempo`  for details on the dataset representation.

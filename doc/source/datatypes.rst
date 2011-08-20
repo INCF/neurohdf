@@ -1,7 +1,9 @@
+.. _datatypes:
+
 Variety of neuroscience dataset types
 -------------------------------------
 
-If you think a basic dataset type is missing, `please let us know <https://github.com/unidesigner/neurohdf/issues/1>`_!
+If you think a basic dataset type is missing, `please file them <https://github.com/unidesigner/neurohdf/issues/1>`_!
 
 Anatomy
 ^^^^^^^

@@ -11,3 +11,7 @@ Further reading
   `Introduction to BioHDF <http://finchtalk.geospiza.com/2009/03/introducing-biohdf.html>`_
 
 * `Bio-Formats Java Library <http://www.loci.wisc.edu/software/bio-formats>`_
+
+* `Nibabel: BIAP3 - a JSON nifti header extension <https://github.com/nipy/nibabel/wiki/BIAP3>`_
+
+* `Fiber Bundle HDF5 library <http://www.fiberbundle.net/>`_
