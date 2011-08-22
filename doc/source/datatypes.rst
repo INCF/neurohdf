@@ -3,7 +3,7 @@
 Variety of neuroscience dataset types
 -------------------------------------
 
-If you think a basic dataset type is missing, `please file them <https://github.com/unidesigner/neurohdf/issues/1>`_!
+If you think a basic dataset type is missing, `please add them <https://github.com/unidesigner/neurohdf/issues/1>`_!
 
 Anatomy
 ^^^^^^^
@@ -98,6 +98,8 @@ Neuroimaging
 * Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
   - Irregular 3D dataset with vertices and triangular faces in spatial reference system
   - (labels,) array with the length of the vertices
+
+* MRI datasets (PET, ...)
 
 * EEG dataset
 

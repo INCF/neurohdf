@@ -10,11 +10,12 @@ interoperability of software tools `are needed <http://incf.org/programs>`_.
 It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data."
 
 NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for neuroscience data and metadata storage
-and management. In particular, the aim of NeuroHDF is **NOT** to create yet another file format, but to:
+and management. NeuroHDF is not yet another file format. In particular, the aims are to:
 
  * provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
    regular or irregular geometry, and map them to a spatial reference system
- * propose a convention on how to express metadata for generic datasets using `JSON <http://www.json.org/>`_
+ * propose a convention on how to express metadata for generic datasets using `JSON <http://www.json.org/>`_ and
+   identifiers from `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
  * investigate options to combine existing domain-specific XML schemas with HDF5
  * define minimal set of metadata fields for a variety of neuroscience application domains
 
