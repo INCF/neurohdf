@@ -30,8 +30,9 @@ If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, 
 for 2 spatial axes, it would be shape (3,3). The zooms define the spatial resolution.
 Individual components `can be extracted <https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py>`_.
 
-The *axes_semantics* refers to the output of the affine transformation. The spatial axes
-should be aligned with the corresponding spatial axes of the *Region*.
+The *axes_semantics* refers to the output of the affine transformation. The spatial axes (kind: spatial)
+should be aligned with the corresponding spatial axes of the *Region*. They should be be ordered, i.e.
+the first spatial axes of the *Region* corresponds to the axis with index 1 in our case.
 
 Open Questions:
 

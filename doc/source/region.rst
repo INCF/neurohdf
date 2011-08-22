@@ -10,7 +10,7 @@ Here is how an example NeuroHDF node for a Region looks like::
 
     Group["My Region Name"]
     .attrs["type"] = "Region"
-    .attrs["affine"] -> 4x4 affine transformation matrix
+    .attrs["affine"] -> array, shape (4,4) for affine transformation matrix
     .attrs["origo_semantics"] = {
         "name" : "anterior commisure",
         "OBO" : "UMLSCUI:C0152335"
@@ -31,14 +31,12 @@ Here is how an example NeuroHDF node for a Region looks like::
         1 : {"name" : "y", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
         2 : {"name" : "z", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
     }
-    .attrs["AABB"] = np.array( [ [-10,-10,-10], [10,10,10] ], dtype = np.float32 )
 
     # now, the datasets ...
 
         Group["Regular data block"] ...
-        ...
         Group["3D Skeletons"] ...
-
+        ...
 
 A *Region* contains spatio-temporal datasets that are spatially transformed relative to the local coordinate system
 defined by the *Region*.
