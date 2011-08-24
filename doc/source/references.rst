@@ -15,3 +15,10 @@ Further reading
 * `Nibabel: BIAP3 - a JSON nifti header extension <https://github.com/nipy/nibabel/wiki/BIAP3>`_
 
 * `Fiber Bundle HDF5 library <http://www.fiberbundle.net/>`_
+
+* `Extending Nifti discussion <http://www.nitrc.org/forum/forum.php?thread_id=2071&forum_id=1942>`_
+
+* `MINC2 <http://en.wikibooks.org/wiki/MINC/Reference/MINC2.0_Users_Guide>`_
+
+* `HDF5 forum <http://hdf-forum.184993.n3.nabble.com/>`_
+
