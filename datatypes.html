@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Variety of neuroscience dataset types &mdash; NeuroHDF v documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <title>Variety of neuroscience dataset types &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/navy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,11 +22,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="NeuroHDF v documentation" href="index.html" />
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
     <link rel="next" title="Hierarchical Layout: Global Metadata" href="hierarchy.html" />
     <link rel="prev" title="NeuroHDF documentation" href="index.html" />
  
 <script type="text/javascript">
+
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-17713054-4']);
@@ -55,9 +57,46 @@
         <li class="right" >
           <a href="index.html" title="NeuroHDF documentation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Variety of neuroscience dataset types</a><ul>
+<li><a class="reference internal" href="#anatomy">Anatomy</a></li>
+<li><a class="reference internal" href="#simulation">Simulation</a></li>
+<li><a class="reference internal" href="#behavior">Behavior</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#physiology">Physiology</a></li>
+<li><a class="reference internal" href="#genomics-proteomics">Genomics/Proteomics</a></li>
+<li><a class="reference internal" href="#neuroimaging">Neuroimaging</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">NeuroHDF documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="hierarchy.html"
+                        title="next chapter">Hierarchical Layout: Global Metadata</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -65,8 +104,8 @@
           <div class="body">
             
   <div class="section" id="variety-of-neuroscience-dataset-types">
-<h1>Variety of neuroscience dataset types<a class="headerlink" href="#variety-of-neuroscience-dataset-types" title="Permalink to this headline">¶</a></h1>
-<p>If you think a basic dataset type is missing, <a class="reference external" href="https://github.com/unidesigner/neurohdf/issues/1">please let us know</a>!</p>
+<span id="datatypes"></span><h1>Variety of neuroscience dataset types<a class="headerlink" href="#variety-of-neuroscience-dataset-types" title="Permalink to this headline">¶</a></h1>
+<p>If you think a basic dataset type is missing, <a class="reference external" href="https://github.com/unidesigner/neurohdf/issues/1">please add them</a>!</p>
 <div class="section" id="anatomy">
 <h2>Anatomy<a class="headerlink" href="#anatomy" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -75,7 +114,7 @@
 <li>Sets of connectors with location representing synapses connecting vertices of the 3D skeletons</li>
 </ul>
 </li>
-<li>Full volume neuropile reconstruction from electron microscopy<ul>
+<li>Dense reconstruction of neuropile from electron microscopy<ul>
 <li>Regular 3D grid segmenting the structures in a spatial reference system</li>
 <li>Sets of area lists representing structures</li>
 <li>Sets of surface meshes representing structures</li>
@@ -131,6 +170,8 @@
 </ul>
 </li>
 <li>Neurophysiological intracellular recordings</li>
+<li>Spectro-temporal receptive fields</li>
+<li>Functions: Intensity-response function of neurons, Tuning curves, ...</li>
 </ul>
 </div>
 <div class="section" id="genomics-proteomics">
@@ -141,8 +182,8 @@ for a particular genotypic state, physiological state, developmental stage,
 after perturbation with different set of parameters</li>
 </ul>
 </div>
-<div class="section" id="mri-neuroimaging">
-<h2>MRI neuroimaging<a class="headerlink" href="#mri-neuroimaging" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="neuroimaging">
+<h2>Neuroimaging<a class="headerlink" href="#neuroimaging" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Functional MRI dataset
 - Regular 3D grid with time steps in spatial reference system</li>
@@ -156,49 +197,16 @@ after perturbation with different set of parameters</li>
 <li>Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
 - Irregular 3D dataset with vertices and triangular faces in spatial reference system
 - (labels,) array with the length of the vertices</li>
+<li>MRI datasets (PET, ...)</li>
+<li>EEG dataset</li>
+<li>MEG dataset</li>
+<li>NIRS dataset</li>
 </ul>
 </div>
 </div>
 
 
           </div>
-        </div>
-      </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Variety of neuroscience dataset types</a><ul>
-<li><a class="reference internal" href="#anatomy">Anatomy</a></li>
-<li><a class="reference internal" href="#simulation">Simulation</a></li>
-<li><a class="reference internal" href="#behavior">Behavior</a></li>
-<li><a class="reference internal" href="#development">Development</a></li>
-<li><a class="reference internal" href="#physiology">Physiology</a></li>
-<li><a class="reference internal" href="#genomics-proteomics">Genomics/Proteomics</a></li>
-<li><a class="reference internal" href="#mri-neuroimaging">MRI neuroimaging</a></li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">NeuroHDF documentation</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="hierarchy.html"
-                        title="next chapter">Hierarchical Layout: Global Metadata</a></p>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -215,7 +223,7 @@ after perturbation with different set of parameters</li>
         <li class="right" >
           <a href="index.html" title="NeuroHDF documentation"
              >previous</a> |</li>
-        <li><a href="index.html">NeuroHDF v documentation</a> &raquo;</li> 
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -1,4 +1,3 @@
-
 Nifti1 image volume to NeuroHDF regular dataset
 -----------------------------------------------
 
@@ -21,7 +20,7 @@ Use Python library: Nibabel::
     hdr = niftifile.get_header()
     for k,v in hdr.items():
         h5file.attrs["nifti1_" + k] = v
-        
+
     h5file.attrs['nifti1_affine'] = niftifile.get_affine()
     h5file.attrs['affine'] = niftifile.get_affine()
 

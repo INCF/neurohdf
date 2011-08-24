@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>NeuroHDF documentation &mdash; NeuroHDF v documentation</title>
-    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <title>NeuroHDF documentation &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/navy.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,10 +22,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="NeuroHDF v documentation" href="#" />
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="#" />
     <link rel="next" title="Variety of neuroscience dataset types" href="datatypes.html" />
  
 <script type="text/javascript">
+
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-17713054-4']);
@@ -51,55 +53,9 @@
         <li class="right" >
           <a href="datatypes.html" title="Variety of neuroscience dataset types"
              accesskey="N">next</a> |</li>
-        <li><a href="#">NeuroHDF v documentation</a> &raquo;</li> 
+        <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>
-    </div>  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
-  <div class="section" id="neurohdf-documentation">
-<h1>NeuroHDF documentation<a class="headerlink" href="#neurohdf-documentation" title="Permalink to this headline">¶</a></h1>
-<p><cite>What if all neuroscientific datasets were stored in an HDF5 data container by a shared convention among
-instrumentation manufacturers, software tool developers, and scientists?</cite></p>
-<p>On the most basic level, measured and simulated data can be divided into the <strong>sequence of recorded symbols</strong> (usually
-numbers in binary representation), and <strong>metadata</strong> - information about the structure of the binary data, and data
-provenance such as instrumentation and simulation parameters (usually as strings). Almost all file formats basically
-represent a variation on this theme, basically defining the layout of the binary data stream and a selection of
-metadata attributes deemed relevant from a particular perspective or interest group.</p>
-<p>When it comes to exchange of data, between scientists or software tools, a common practice is to use text files when
-no importers/exporters/converters for the required file formats are available. For large datasets, this approach
-is bound to fail and some sort of binary format that allows random access of the data is required. Furthermore,
-all the metadata orginally available should be preserved.</p>
-<p>Neuroscience has to manage and integrate data from anatomy, physiology, behavior and simulation data
-on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data are
-to be produced in the coming decades - and a viable solution is to use prove approaches to deal with this data deluge.</p>
-<p>The aim of NeuroHDF is <strong>NOT</strong> to create yet another file format. Its goal is to propose a convention of how to express
-metadata for generic datasets, settle on a small set of metadata fields for a variety of application domains,
-and provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying geometry.</p>
-<p>See also <a class="reference external" href="http://finchtalk.geospiza.com/2008/02/case-for-hdf.html">the Blog post</a> about the reasoning behind BioHDF
-for large volumes of next generation sequencing data. And the <a class="reference external" href="http://finchtalk.geospiza.com/2009/03/introducing-biohdf.html">introduction into BioHDF</a></p>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Variety of neuroscience dataset types</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Hierarchical Layout: Global Metadata</a></li>
-<li class="toctree-l1"><a class="reference internal" href="region.html">The Region</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook - Spatio-Temporal datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbookgeneric.html">Cookbook - Generic datasets</a></li>
-<li class="toctree-l1"><a class="reference internal" href="evaluatehdf.html">Evaluation of HDF5</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">Further reading</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
-</ul>
-</div>
-</div>
-
-
-          </div>
-        </div>
-      </div>
+    </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
@@ -120,6 +76,51 @@ for large volumes of next generation sequencing data. And the <a class="referenc
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="neurohdf-documentation">
+<h1>NeuroHDF documentation<a class="headerlink" href="#neurohdf-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Neuroscientists have to manage and integrate data from anatomy, physiology, behavior and simulation data
+on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data with
+complex data types are to be produced in the coming decades - and viable solutions for databasing, data sharing and
+interoperability of software tools <a class="reference external" href="http://incf.org/programs">are needed</a>.</p>
+<p>&#8220;<a class="reference external" href="http://www.hdfgroup.org/HDF5/">Hierarchical Data Format (HDF5)</a> is a data model, library, and file format for storing and managing data.
+It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data.&#8221;</p>
+<p>NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for neuroscience data and metadata storage
+and management. NeuroHDF is not yet another file format. In particular, the aims are to:</p>
+<blockquote>
+<div><ul class="simple">
+<li>provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
+regular or irregular geometry, and map them to a spatial reference system</li>
+<li>propose a convention on how to express metadata for generic datasets using <a class="reference external" href="http://www.json.org/">JSON</a> and
+identifiers from <a class="reference external" href="http://obofoundry.org/">Open Biological and Biomedical Ontologies</a></li>
+<li>investigate options to combine existing domain-specific XML schemas with HDF5</li>
+<li>define minimal set of metadata fields for a variety of neuroscience application domains</li>
+</ul>
+</div></blockquote>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Variety of neuroscience dataset types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Hierarchical Layout: Global Metadata</a></li>
+<li class="toctree-l1"><a class="reference internal" href="region.html">The Region</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook_spatiotempo.html">Cookbook - Spatio-Temporal datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook_generic.html">Cookbook - Generic datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="evaluatehdf.html">Evaluation of HDF5</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">Further reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -131,7 +132,7 @@ for large volumes of next generation sequencing data. And the <a class="referenc
         <li class="right" >
           <a href="datatypes.html" title="Variety of neuroscience dataset types"
              >next</a> |</li>
-        <li><a href="#">NeuroHDF v documentation</a> &raquo;</li> 
+        <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

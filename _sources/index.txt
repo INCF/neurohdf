@@ -1,39 +1,23 @@
-.. NeuroHDF documentation master file, created by
-   sphinx-quickstart on Sat May 21 18:17:36 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 NeuroHDF documentation
 ======================
 
-`What if all neuroscientific datasets were stored in an HDF5 data container by a shared convention among
-instrumentation manufacturers, software tool developers, and scientists?`
+Neuroscientists have to manage and integrate data from anatomy, physiology, behavior and simulation data
+on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data with
+complex data types are to be produced in the coming decades - and viable solutions for databasing, data sharing and
+interoperability of software tools `are needed <http://incf.org/programs>`_.
 
-On the most basic level, measured and simulated data can be divided into the **sequence of recorded symbols** (usually
-numbers in binary representation), and **metadata** - information about the structure of the binary data, and data
-provenance such as instrumentation and simulation parameters (usually as strings). Almost all file formats basically
-represent a variation on this theme, basically defining the layout of the binary data stream and a selection of
-metadata attributes deemed relevant from a particular perspective or interest group.
+"`Hierarchical Data Format (HDF5) <http://www.hdfgroup.org/HDF5/>`_ is a data model, library, and file format for storing and managing data.
+It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data."
 
-When it comes to exchange of data, between scientists or software tools, a common practice is to use text files when
-no importers/exporters/converters for the required file formats are available. For large datasets, this approach
-is bound to fail and some sort of binary format that allows random access of the data is required. Furthermore,
-all the metadata orginally available should be preserved.
+NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for neuroscience data and metadata storage
+and management. NeuroHDF is not yet another file format. In particular, the aims are to:
 
-Neuroscience has to manage and integrate data from anatomy, physiology, behavior and simulation data
-on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data are
-to be produced in the coming decades - and a viable solution is to use prove approaches to deal with this data deluge.
-
-The aim of NeuroHDF is **NOT** to create yet another file format. Its goal is to propose a convention of how to express
-metadata for generic datasets, settle on a small set of metadata fields for a variety of application domains,
-and provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying geometry.
-
-See also `the Blog post <http://finchtalk.geospiza.com/2008/02/case-for-hdf.html>`_ about the reasoning behind BioHDF
-for large volumes of next generation sequencing data. And the `introduction into BioHDF <http://finchtalk.geospiza.com/2009/03/introducing-biohdf.html>`_
-
-.. Sydney Brenner, 2002 Nobel Prize winner said (Bradford, 2003):
-.. "We now have unprecedented ability to collect data about nature but there is now a crisis developing in biology, in that completely unstructured information does not enhance understanding. We need a framework to put all of this knowledge and data into — that is going to be the problem in biology. We've reached the stage where we can't talk to each other — we've all become highly specialized. We need a framework, a framework where people can come back to us and say, 'Yes, I understand.' Driving toward that framework is really the big challenge."
-
+ * provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
+   regular or irregular geometry, and map them to a spatial reference system
+ * propose a convention on how to express metadata for generic datasets using `JSON <http://www.json.org/>`_ and
+   identifiers from `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
+ * investigate options to combine existing domain-specific XML schemas with HDF5
+ * define minimal set of metadata fields for a variety of neuroscience application domains
 
 Contents:
 
@@ -43,8 +27,8 @@ Contents:
    datatypes
    hierarchy
    region
-   cookbook
-   cookbookgeneric
+   cookbook_spatiotempo
+   cookbook_generic
    evaluatehdf
    references
    contact
