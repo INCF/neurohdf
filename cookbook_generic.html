@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cookbook - Generic datasets &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/navy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
+    <link rel="next" title="Evaluation of HDF5" href="evaluatehdf.html" />
+    <link rel="prev" title="Cookbook - Spatio-Temporal datasets" href="cookbook_spatiotempo.html" />
+ 
+<script type="text/javascript">
+
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17713054-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script');
+   ga.src = ('https:' == document.location.protocol ?
+             'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   ga.setAttribute('async', 'true');
+   document.documentElement.firstChild.appendChild(ga);
+ })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="evaluatehdf.html" title="Evaluation of HDF5"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cookbook_spatiotempo.html" title="Cookbook - Spatio-Temporal datasets"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cookbook - Generic datasets</a><ul>
+<li><a class="reference internal" href="#networks">Networks</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cookbook_spatiotempo.html"
+                        title="previous chapter">Cookbook - Spatio-Temporal datasets</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="evaluatehdf.html"
+                        title="next chapter">Evaluation of HDF5</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cookbook-generic-datasets">
+<h1>Cookbook - Generic datasets<a class="headerlink" href="#cookbook-generic-datasets" title="Permalink to this headline">¶</a></h1>
+<p>A proposal for data structures that are not spatio-temporally mapped, such as networks, behavioral or simulation results
+(<a class="reference internal" href="datatypes.html#datatypes"><em>Variety of neuroscience dataset types</em></a> for more).</p>
+<div class="section" id="networks">
+<h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
+<p>The basic structure is similar to a static irregular dataset with vertices and connectivity.</p>
+<p>NeuroHDF node:</p>
+<div class="highlight-python"><pre>Group["My Network"]
+
+    Group["vertices"]
+
+        Group["connectivity"]
+
+            Group["properties"] : dataset's first dimension must be M
+                Dataset["labels"] -&gt; could express link modularity
+                Dataset["weight"] -&gt; express weight of the connection
+                Dataset["fromid"] -&gt; if connectivity is expressed based on the node id, not index
+                Dataset["toid"] -&gt; dito. alternatively, store connectivity between ids in data ?
+
+            Dataset["data"] : array, shape (M,2) stores the connectivity between vertices 0-indexed
+            .attrs["semantics"] = {
+                0 : {"name":"connection"},
+                1 : {"name":"topology",
+                     "column" : {
+                        0 : {"name":"from"},
+                        1 : {"name":"to"},
+                     },
+                     "directed" : True
+                    }
+            }
+
+        Group["properties"]:
+            Dataset["labels"] -&gt; Nx1 array of labels. could express modules (hierarchical) of the network
+            Dataset["color"] -&gt; e.g. node color
+
+        Dataset["data"] -&gt; stores the node id in Nx1 array</pre>
+</div>
+<p>Alternatively, if the graph is dense, store the complete connectivity matrix similar to a regular dataset.</p>
+<p>NeuroHDF node:</p>
+<div class="highlight-python"><pre>Group["Connection Matrix"]
+
+    Dataset["data"] -&gt; array, shape (N,N) for connectivity matrix
+    .attrs["axes_semantics"] = {
+        0 : {"name" : "fromregion", },
+        1 : {"name" : "toregion" }
+    }
+
+    Group["properties"]
+        Dataset["id"] : array, shape (N,1) with node properties</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="evaluatehdf.html" title="Evaluation of HDF5"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cookbook_spatiotempo.html" title="Cookbook - Spatio-Temporal datasets"
+             >previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
