@@ -17,13 +17,13 @@ NeuroHDF node for a Region::
     }
     .attrs["axes_info"] = {
         0 : { "positive" : {"name" : "right", "ref" : "BSPO:0000007"},
-              "negative" : {"name" : "left", "OBO : "BSPO:0000000"}
+              "negative" : {"name" : "left", "ref" : "BSPO:0000000"}
             },
         1 : { "positive" : {"name" : "anterior", "ref" : "BSPO:0000055"},
-              "negative" : {"name" : "posterior", "OBO : "BSPO:0000025"}
+              "negative" : {"name" : "posterior", "ref" : "BSPO:0000025"}
             },
         2 : { "positive" : {"name" : "dorsal", "ref" : "BSPO:0000063"},
-              "negative" : {"name" : "ventral", "OBO : "BSPO:0000068"}
+              "negative" : {"name" : "ventral", "ref" : "BSPO:0000068"}
             }
     }
     .attrs["axes_units"] = {
