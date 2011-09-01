@@ -6,30 +6,30 @@ The Region
 We represent the unifying concept of a 3D spatial reference frame in NeuroHDF as a *Region*. A Region is the container
 for spatio-temporal datasets and is mapped to a HDF Group node with Region-based metadata.
 
-Here is how an example NeuroHDF node for a Region looks like::
+NeuroHDF node for a Region::
 
     Group["My Region Name"]
     .attrs["type"] = "Region"
     .attrs["affine"] -> array, shape (4,4) for affine transformation matrix
-    .attrs["origo_semantics"] = {
+    .attrs["origin_info"] = {
         "name" : "anterior commisure",
-        "OBO" : "UMLSCUI:C0152335"
+        "ref" : "UMLSCUI:C0152335"
     }
-    .attrs["axes_semantics"] = {
-        0 : { "positive" : {"name" : "right", "OBO" : "BSPO:0000007"},
+    .attrs["axes_info"] = {
+        0 : { "positive" : {"name" : "right", "ref" : "BSPO:0000007"},
               "negative" : {"name" : "left", "OBO : "BSPO:0000000"}
             },
-        1 : { "positive" : {"name" : "anterior", "OBO" : "BSPO:0000055"},
+        1 : { "positive" : {"name" : "anterior", "ref" : "BSPO:0000055"},
               "negative" : {"name" : "posterior", "OBO : "BSPO:0000025"}
             },
-        2 : { "positive" : {"name" : "dorsal", "OBO" : "BSPO:0000063"},
+        2 : { "positive" : {"name" : "dorsal", "ref" : "BSPO:0000063"},
               "negative" : {"name" : "ventral", "OBO : "BSPO:0000068"}
             }
     }
     .attrs["axes_units"] = {
-        0 : {"name" : "x", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
-        1 : {"name" : "y", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
-        2 : {"name" : "z", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
+        0 : {"name" : "x", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
+        1 : {"name" : "y", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
+        2 : {"name" : "z", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
     }
 
     # now, the datasets ...
