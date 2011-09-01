@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="NeuroHDF v0.1 documentation" href="#" />
-    <link rel="next" title="Variety of neuroscience dataset types" href="datatypes.html" />
+    <link rel="next" title="Hierarchical Layout: Global Metadata" href="hierarchy.html" />
  
 <script type="text/javascript">
 
@@ -51,7 +51,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="datatypes.html" title="Variety of neuroscience dataset types"
+          <a href="hierarchy.html" title="Hierarchical Layout: Global Metadata"
              accesskey="N">next</a> |</li>
         <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>
@@ -59,8 +59,8 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Next topic</h4>
-  <p class="topless"><a href="datatypes.html"
-                        title="next chapter">Variety of neuroscience dataset types</a></p>
+  <p class="topless"><a href="hierarchy.html"
+                        title="next chapter">Hierarchical Layout: Global Metadata</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -84,18 +84,18 @@
             
   <div class="section" id="neurohdf-documentation">
 <h1>NeuroHDF documentation<a class="headerlink" href="#neurohdf-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Neuroscientists have to manage and integrate data from anatomy, physiology, behavior and simulation data
+<p>Neuroscientists need to manage and integrate data from anatomy, physiology, behavior and simulation data
 on multiple spatial and temporal scales and across modalities, individuals and species. Large amounts of data with
 complex data types are to be produced in the coming decades - and viable solutions for databasing, data sharing and
 interoperability of software tools <a class="reference external" href="http://incf.org/programs">are needed</a>.</p>
 <p>&#8220;<a class="reference external" href="http://www.hdfgroup.org/HDF5/">Hierarchical Data Format (HDF5)</a> is a data model, library, and file format for storing and managing data.
 It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data.&#8221;</p>
 <p>NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for neuroscience data and metadata storage
-and management. NeuroHDF is not yet another file format. In particular, the aims are to:</p>
+and management. It is <strong>not</strong> yet another file format. In particular, the aims are to:</p>
 <blockquote>
 <div><ul class="simple">
 <li>provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
-regular or irregular geometry, and map them to a spatial reference system</li>
+regular or irregular geometry, map them to a spatial reference system and define metadata</li>
 <li>propose a convention on how to express metadata for generic datasets using <a class="reference external" href="http://www.json.org/">JSON</a> and
 identifiers from <a class="reference external" href="http://obofoundry.org/">Open Biological and Biomedical Ontologies</a></li>
 <li>investigate options to combine existing domain-specific XML schemas with HDF5</li>
@@ -105,13 +105,13 @@ identifiers from <a class="reference external" href="http://obofoundry.org/">Ope
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Variety of neuroscience dataset types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hierarchy.html">Hierarchical Layout: Global Metadata</a></li>
 <li class="toctree-l1"><a class="reference internal" href="region.html">The Region</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_spatiotempo.html">Cookbook - Spatio-Temporal datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook_generic.html">Cookbook - Generic datasets</a></li>
 <li class="toctree-l1"><a class="reference internal" href="evaluatehdf.html">Evaluation of HDF5</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">Further reading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datatypes.html">Variety of neuroscience dataset types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 </ul>
 </div>
@@ -130,7 +130,7 @@ identifiers from <a class="reference external" href="http://obofoundry.org/">Ope
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="datatypes.html" title="Variety of neuroscience dataset types"
+          <a href="hierarchy.html" title="Hierarchical Layout: Global Metadata"
              >next</a> |</li>
         <li><a href="#">NeuroHDF v0.1 documentation</a> &raquo;</li> 
       </ul>

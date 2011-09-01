@@ -29,6 +29,11 @@ Anatomy
 
 * Network of neuron classes and their connection probability (circuit diagram)
 
+Microscopy
+``````````
+Standardized, open formats:
+* Open Microscopy Environment (OME): `Metadata matters: access to image data in the real world <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed>`_
+
 Simulation
 ^^^^^^^^^^
 
@@ -105,4 +110,6 @@ Neuroimaging
 
 * MEG dataset
 
-* NIRS dataset
+NIRS dataset
+````````````
+`INCF: Development of a standard file format for NIRS <http://datasharing.incf.org/ni/NIRS>`_

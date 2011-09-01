@@ -99,8 +99,8 @@
             
   <div class="section" id="cookbook-generic-datasets">
 <h1>Cookbook - Generic datasets<a class="headerlink" href="#cookbook-generic-datasets" title="Permalink to this headline">¶</a></h1>
-<p>A proposal for data structures that are not spatio-temporally mapped, such as networks, behavioral or simulation results
-(<a class="reference internal" href="datatypes.html#datatypes"><em>Variety of neuroscience dataset types</em></a> for more).</p>
+<p>A proposal for data structures that are not spatio-temporally mapped, such as networks,
+behavioral or simulation results (<a class="reference internal" href="datatypes.html#datatypes"><em>Variety of neuroscience dataset types</em></a> for more).</p>
 <div class="section" id="networks">
 <h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
 <p>The basic structure is similar to a static irregular dataset with vertices and connectivity.</p>
@@ -109,44 +109,43 @@
 
     Group["vertices"]
 
-        Group["connectivity"]
-
-            Group["properties"] : dataset's first dimension must be M
-                Dataset["labels"] -&gt; could express link modularity
-                Dataset["weight"] -&gt; express weight of the connection
-                Dataset["fromid"] -&gt; if connectivity is expressed based on the node id, not index
-                Dataset["toid"] -&gt; dito. alternatively, store connectivity between ids in data ?
-
-            Dataset["data"] : array, shape (M,2) stores the connectivity between vertices 0-indexed
-            .attrs["semantics"] = {
-                0 : {"name":"connection"},
-                1 : {"name":"topology",
-                     "column" : {
-                        0 : {"name":"from"},
-                        1 : {"name":"to"},
-                     },
-                     "directed" : True
-                    }
-            }
+        Dataset["data"] : array, shape (N,1) for node identifiers
 
         Group["properties"]:
-            Dataset["labels"] -&gt; Nx1 array of labels. could express modules (hierarchical) of the network
-            Dataset["color"] -&gt; e.g. node color
+            Dataset["group"] : array, shape (N,1) to group nodes of the network
+            Dataset["color"] : array, shape (N,3) for node color in RGB
 
-        Dataset["data"] -&gt; stores the node id in Nx1 array</pre>
+        Group["connectivity"]
+
+            Dataset["data"] : array, shape (M,2) stores the connectivity between vertices 0-indexed
+            .attrs["axes_info"] = {
+                0 : {"name":"connection"},
+                1 : {"name":"topology",
+                     "label" : {
+                        0 : {"name":"from"},
+                        1 : {"name":"to"},
+                     }
+                    }
+            }
+            .attrs["metadata"] = {
+                "directed" : True
+            }
+
+            Group["properties"] :
+                Dataset["weight"] &gt; array, shape (M,2) for the connection weigth</pre>
 </div>
 <p>Alternatively, if the graph is dense, store the complete connectivity matrix similar to a regular dataset.</p>
 <p>NeuroHDF node:</p>
 <div class="highlight-python"><pre>Group["Connection Matrix"]
 
     Dataset["data"] -&gt; array, shape (N,N) for connectivity matrix
-    .attrs["axes_semantics"] = {
-        0 : {"name" : "fromregion", },
-        1 : {"name" : "toregion" }
+    .attrs["axes_info"] = {
+        0 : {"name" : "from region", },
+        1 : {"name" : "to region" }
     }
 
     Group["properties"]
-        Dataset["id"] : array, shape (N,1) with node properties</pre>
+        Dataset["id"] : array, shape (N,1) with node identifiers</pre>
 </div>
 </div>
 </div>

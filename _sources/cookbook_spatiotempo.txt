@@ -4,12 +4,12 @@ Cookbook - Spatio-Temporal datasets
 ===================================
 
 This page introduces NeuroHDF convention for the hierarchical layout of spatio-temporal datasets (datasets
-with underlying geometry) that can be an element of a *Region*. A description of the usage of HDF5 Groups
-and Dataset nodes is given.
+with underlying geometry) that are subnodes of a *Region*. The spatial coordinates are referenced relative
+to the coordinate system defined by the region.
 
 .. note::
-   For metadata attributes, 0-indexed is the convention (Python convention).
-   Matlab uses 1-indexed convention, so the indices need to be incremented by one in Matlab.
+   For metadata attributes, 0-indexed is the convention (Python convention), different from
+   1-indexed based conventions (e.g. in Matlab).
 
 Regular datasets
 ----------------
@@ -17,54 +17,52 @@ Regular datasets
 N-dimensional contiguous, homogeneous dataset
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A data block with at least one spatial dimension. It may have temporal dimensions. There are usually
-additional dimensions (trials, channels, subjects etc.). All information about the axes are stored in
-the JSON header.
-
-Examples:
-
-* Microscopy where measurement sensors are on a regular grid
-* 2D pixel-based slices
+additional dimensions (trials, channels, subjects etc.). All information about the axes are stored
+as metadata.
 
 The affine represents the transformation from voxel space to the *Region* space.
 If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, shears.
-for 2 spatial axes, it would be shape (3,3). The zooms define the spatial resolution.
+for 2 spatial axes, the affine has shape (3,3). The zooms define the spatial resolution.
 Individual components `can be extracted <https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py>`_.
 
-The *axes_semantics* refers to the output of the affine transformation. The spatial axes (kind: spatial)
+The *axes_info* refers to the output of the affine transformation. The spatial axes (kind: spatial)
 should be aligned with the corresponding spatial axes of the *Region*. They should be be ordered, i.e.
 the first spatial axes of the *Region* corresponds to the axis with index 1 in our case.
 
 Open Questions:
 
 * When rotation occurs in the affine transformation, the semantics of pre/post transformation could be changed.
-  Otherwise, with only scaling and translation, they are expected to stay invariant
+  Otherwise, with only scaling and translation, they are expected to stay invariant.
 
 NeuroHDF node::
 
     Group["Regular data block"]
 
-        Dataset["data"] -> nd array
-        .attrs["affine"] -> 2d array, shape (4,4) for 3 spatial axes
-        .attrs["axes_semantics"] = {
+        Dataset["data"] : nd array
+        .attrs["affine"] : 2d array, shape (4,4) for 3 spatial axes
+        .attrs["axes_info"] = {
             0 : {"name" : "t",
-                 "unit" : {"name": "millisecond", "OBO" : "UO:0000028"},
+                 "unit" : {"name": "millisecond", "ref" : "UO:0000028"},
                  "sampling frequency" : 256,
                  "kind" : "temporal" },
             1 : {"name" : "x",
-                 "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
                  "kind" : "spatial" },
             2 : {"name" : "y",
-                 "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
                  "kind" : "spatial" },
             3 : {"name" : "z",
-                 "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
                  "kind" : "spatial" },
             4 : {"name" : "r",
                  "desc" : "Red channel measurement"},
-            5 : {"name" : "g" },
-            6 : {"name" : "b" },
-            7 : {"name" : "trial" }
+            5 : {"name" : "g",
+                 "desc" : "Green channel measurement"},
+            6 : {"name" : "b",
+                 "desc" : "Blue channel measurement"},
+            7 : {"name" : "trial"}
         }
+        .attrs["metadata"] : domain and data specific metadata
 
 
 Irregular datasets
@@ -72,19 +70,10 @@ Irregular datasets
 
 3D skeletons / microcircuitry
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Irregular spatial data, namely N vertices with spatial location, but no temporal data.
-Properties such as label data exists on the vertices and connectivity.
-We stack multiple skeletons (tree topologies) with N vertices with spatial location and M connections.
-
 Examples:
 
 * Cellular morphologies (skeletonized)
 * Skeletonized reconstructions from electron microscopy, e.g. with `CATMAID <https://github.com/acardona/CATMAID>`_
-
-Open Questions:
-
-* Is the *spatial location* unit's defined after application of the affine transformation?
-  Or are the axes semantics in this case refering to the array axes?
 
 NeuroHDF node::
 
@@ -92,39 +81,37 @@ NeuroHDF node::
 
         Group["vertices"]
             Dataset["data"] : array, shape (N,3) with spatial location
-            .attrs["affine"] : 2d array, shape (4,4)
-            .attrs["axes_semantics"] = {
+            .attrs["axes_info"] = {
                 0 : {"name":"entities"},
                 1 : {"name":"spatial location",
-                     "column": {
-                        0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                        1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                        2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                     "label": {
+                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
                      } } }
 
             Group["properties"]
                 Dataset["type"] array, shape (N,1)
-                .attrs["semantics"] = {
+                .attrs["value"] = {
                     1 : {"name" : "skeleton node"},
-                    2 : {"name" : "connector  node"}
+                    2 : {"name" : "connector node"}
                 }
 
             Group["connectivity"]
                 Dataset["data"] array, shape (M,2)
                 -> stores the connectivity between vertices in 0-indexed (global topology) array
-                .attrs["semantics"] = {
+                .attrs["axes_info"] = {
                     0 : {"name":"entities"},
                     1 : {"name":"connections",
-                         "column" : {
+                         "label" : {
                             0 : {"name" : "from"},
                             1 : {"name" : "to"},
-                         },
-                         "directed" : False
+                         }
                         }
                 }
                 Group["properties"]
                     Dataset["type"] array, shape (M,1)
-                    .attrs["semantics"] = {
+                    .attrs["value"] = {
                         1 : {"name" : "axonal arbor"},
                         2 : {"name" : "dendritic arbor"},
                         3 : {"name" : "cell body"},
@@ -133,34 +120,6 @@ NeuroHDF node::
                         6 : {"name" : "postsynaptic to"},
                     }
                     Dataset["id"] array, shape (M,1)
-
-
-Example code to create the dataset node::
-
-    import numpy as np
-    import json
-    import h5py
-    myfile = h5py.File('ff.h5')
-
-    dset = myfile.create_group("3D Skeletons")
-    vert = dset.create_group("vertices")
-
-    vert.create_dataset("data", data=np.random.random((10,3)))
-
-    vert.create_group("properties")
-    vert["properties"].create_dataset("labels", data=np.random.random_integers(1,3,(10,)))
-    vert["properties"]["labels"].attrs["semantics"] = json.dumps({
-        1 : {"name" : "axonal arbor"},
-        2 : {"name" : "dendritic arbor"},
-        3 : {"name" : "cell body"} })
-
-    vert.create_group("grouping")
-    vert["grouping"].create_dataset("index", data=np.array([[200,0,4],[300,5,9]]))
-
-    con = vert.create_group("connectivity")
-    con.create_dataset("data", data=np.array(range(10)))
-
-    myfile.close()
 
 
 .. ... with changing vertices location
@@ -185,19 +144,18 @@ NeuroHDF node::
 
         Group["vertices"]
             Dataset["data"] : array, shape (N,3) with spatial location
-            .attrs["affine"] : 2d array, shape (4,4)
-            .attrs["axes_semantics"] = {
-                0 : {"name":"entities"},
+            .attrs["axes_info"] = {
+                0 : {"name":"points"},
                 1 : {"name":"spatial location",
-                     "column": {
-                        0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                        1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                        2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                     "labels": {
+                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
                      } } }
 
             Group["properties"]
                 Dataset["type"] : array, shape (N,1)
-                .attrs["semantics"] = {
+                .attrs["value"] = {
                     1 : {"name" : "axonal arbor"},
                     2 : {"name" : "dendritic arbor"},
                     3 : {"name" : "cell body"}
@@ -207,9 +165,9 @@ NeuroHDF node::
             Group["connectivity"]
                 Dataset["data"] : array, shape (M,3)
                 -> global topology of triangular faces. find local topology by subtracting min()
-                .attrs["semantics"] = {
+                .attrs["axes_info"] = {
                     0 : {"name": "entities" },
-                    1 : {"name": "triangular faces", "directed" : False }
+                    1 : {"name": "triangular faces" }
                 }
                 Group["properties"]
                     Dataset["type"] : array, shape (M,1)

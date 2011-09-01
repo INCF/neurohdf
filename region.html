@@ -93,29 +93,29 @@
 <span id="region"></span><h1>The Region<a class="headerlink" href="#the-region" title="Permalink to this headline">¶</a></h1>
 <p>We represent the unifying concept of a 3D spatial reference frame in NeuroHDF as a <em>Region</em>. A Region is the container
 for spatio-temporal datasets and is mapped to a HDF Group node with Region-based metadata.</p>
-<p>Here is how an example NeuroHDF node for a Region looks like:</p>
+<p>NeuroHDF node for a Region:</p>
 <div class="highlight-python"><pre>Group["My Region Name"]
 .attrs["type"] = "Region"
 .attrs["affine"] -&gt; array, shape (4,4) for affine transformation matrix
-.attrs["origo_semantics"] = {
+.attrs["origin_info"] = {
     "name" : "anterior commisure",
-    "OBO" : "UMLSCUI:C0152335"
+    "ref" : "UMLSCUI:C0152335"
 }
-.attrs["axes_semantics"] = {
-    0 : { "positive" : {"name" : "right", "OBO" : "BSPO:0000007"},
-          "negative" : {"name" : "left", "OBO : "BSPO:0000000"}
+.attrs["axes_info"] = {
+    0 : { "positive" : {"name" : "right", "ref" : "BSPO:0000007"},
+          "negative" : {"name" : "left", "ref" : "BSPO:0000000"}
         },
-    1 : { "positive" : {"name" : "anterior", "OBO" : "BSPO:0000055"},
-          "negative" : {"name" : "posterior", "OBO : "BSPO:0000025"}
+    1 : { "positive" : {"name" : "anterior", "ref" : "BSPO:0000055"},
+          "negative" : {"name" : "posterior", "ref" : "BSPO:0000025"}
         },
-    2 : { "positive" : {"name" : "dorsal", "OBO" : "BSPO:0000063"},
-          "negative" : {"name" : "ventral", "OBO : "BSPO:0000068"}
+    2 : { "positive" : {"name" : "dorsal", "ref" : "BSPO:0000063"},
+          "negative" : {"name" : "ventral", "ref" : "BSPO:0000068"}
         }
 }
 .attrs["axes_units"] = {
-    0 : {"name" : "x", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
-    1 : {"name" : "y", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
-    2 : {"name" : "z", "unit" : {"name": "mm", "OBO" : "UO:0000016"} },
+    0 : {"name" : "x", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
+    1 : {"name" : "y", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
+    2 : {"name" : "z", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
 }
 
 # now, the datasets ...
@@ -127,7 +127,7 @@ for spatio-temporal datasets and is mapped to a HDF Group node with Region-based
 <p>A <em>Region</em> contains spatio-temporal datasets that are spatially transformed relative to the local coordinate system
 defined by the <em>Region</em>.</p>
 <p>The datasets are either regular or irregular:</p>
-<img alt="_images/region2.png" src="_images/region2.png" />
+<img alt="_images/region1.png" src="_images/region1.png" />
 <p>We need to establish a basic convention for a global coordinate system, defining the axes order,
 naming convention and orientation, to be able to interpret the affine transformation associated with each Region:</p>
 <ul class="simple">

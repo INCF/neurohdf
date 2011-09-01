@@ -108,62 +108,60 @@
   <div class="section" id="cookbook-spatio-temporal-datasets">
 <span id="spatiotempo"></span><h1>Cookbook - Spatio-Temporal datasets<a class="headerlink" href="#cookbook-spatio-temporal-datasets" title="Permalink to this headline">¶</a></h1>
 <p>This page introduces NeuroHDF convention for the hierarchical layout of spatio-temporal datasets (datasets
-with underlying geometry) that can be an element of a <em>Region</em>. A description of the usage of HDF5 Groups
-and Dataset nodes is given.</p>
+with underlying geometry) that are subnodes of a <em>Region</em>. The spatial coordinates are referenced relative
+to the coordinate system defined by the region.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">For metadata attributes, 0-indexed is the convention (Python convention).
-Matlab uses 1-indexed convention, so the indices need to be incremented by one in Matlab.</p>
+<p class="last">For metadata attributes, 0-indexed is the convention (Python convention), different from
+1-indexed based conventions (e.g. in Matlab).</p>
 </div>
 <div class="section" id="regular-datasets">
 <h2>Regular datasets<a class="headerlink" href="#regular-datasets" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="n-dimensional-contiguous-homogeneous-dataset">
 <h3>N-dimensional contiguous, homogeneous dataset<a class="headerlink" href="#n-dimensional-contiguous-homogeneous-dataset" title="Permalink to this headline">¶</a></h3>
 <p>A data block with at least one spatial dimension. It may have temporal dimensions. There are usually
-additional dimensions (trials, channels, subjects etc.). All information about the axes are stored in
-the JSON header.</p>
-<p>Examples:</p>
-<ul class="simple">
-<li>Microscopy where measurement sensors are on a regular grid</li>
-<li>2D pixel-based slices</li>
-</ul>
+additional dimensions (trials, channels, subjects etc.). All information about the axes are stored
+as metadata.</p>
 <p>The affine represents the transformation from voxel space to the <em>Region</em> space.
 If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, shears.
-for 2 spatial axes, it would be shape (3,3). The zooms define the spatial resolution.
+for 2 spatial axes, the affine has shape (3,3). The zooms define the spatial resolution.
 Individual components <a class="reference external" href="https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py">can be extracted</a>.</p>
-<p>The <em>axes_semantics</em> refers to the output of the affine transformation. The spatial axes (kind: spatial)
+<p>The <em>axes_info</em> refers to the output of the affine transformation. The spatial axes (kind: spatial)
 should be aligned with the corresponding spatial axes of the <em>Region</em>. They should be be ordered, i.e.
 the first spatial axes of the <em>Region</em> corresponds to the axis with index 1 in our case.</p>
 <p>Open Questions:</p>
 <ul class="simple">
 <li>When rotation occurs in the affine transformation, the semantics of pre/post transformation could be changed.
-Otherwise, with only scaling and translation, they are expected to stay invariant</li>
+Otherwise, with only scaling and translation, they are expected to stay invariant.</li>
 </ul>
 <p>NeuroHDF node:</p>
 <div class="highlight-python"><pre>Group["Regular data block"]
 
-    Dataset["data"] -&gt; nd array
-    .attrs["affine"] -&gt; 2d array, shape (4,4) for 3 spatial axes
-    .attrs["axes_semantics"] = {
+    Dataset["data"] : nd array
+    .attrs["affine"] : 2d array, shape (4,4) for 3 spatial axes
+    .attrs["axes_info"] = {
         0 : {"name" : "t",
-             "unit" : {"name": "millisecond", "OBO" : "UO:0000028"},
+             "unit" : {"name": "millisecond", "ref" : "UO:0000028"},
              "sampling frequency" : 256,
              "kind" : "temporal" },
         1 : {"name" : "x",
-             "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+             "unit" : {"name": "meter", "ref" : "UO:0000008"},
              "kind" : "spatial" },
         2 : {"name" : "y",
-             "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+             "unit" : {"name": "meter", "ref" : "UO:0000008"},
              "kind" : "spatial" },
         3 : {"name" : "z",
-             "unit" : {"name": "meter", "OBO" : "UO:0000008"},
+             "unit" : {"name": "meter", "ref" : "UO:0000008"},
              "kind" : "spatial" },
         4 : {"name" : "r",
              "desc" : "Red channel measurement"},
-        5 : {"name" : "g" },
-        6 : {"name" : "b" },
-        7 : {"name" : "trial" }
-    }</pre>
+        5 : {"name" : "g",
+             "desc" : "Green channel measurement"},
+        6 : {"name" : "b",
+             "desc" : "Blue channel measurement"},
+        7 : {"name" : "trial"}
+    }
+    .attrs["metadata"] : domain and data specific metadata</pre>
 </div>
 </div>
 </div>
@@ -171,57 +169,47 @@ Otherwise, with only scaling and translation, they are expected to stay invarian
 <h2>Irregular datasets<a class="headerlink" href="#irregular-datasets" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="d-skeletons-microcircuitry">
 <h3>3D skeletons / microcircuitry<a class="headerlink" href="#d-skeletons-microcircuitry" title="Permalink to this headline">¶</a></h3>
-<p>Irregular spatial data, namely N vertices with spatial location, but no temporal data.
-Properties such as label data exists on the vertices and connectivity.
-We stack multiple skeletons (tree topologies) with N vertices with spatial location and M connections.</p>
 <p>Examples:</p>
 <ul class="simple">
 <li>Cellular morphologies (skeletonized)</li>
 <li>Skeletonized reconstructions from electron microscopy, e.g. with <a class="reference external" href="https://github.com/acardona/CATMAID">CATMAID</a></li>
-</ul>
-<p>Open Questions:</p>
-<ul class="simple">
-<li>Is the <em>spatial location</em> unit&#8217;s defined after application of the affine transformation?
-Or are the axes semantics in this case refering to the array axes?</li>
 </ul>
 <p>NeuroHDF node:</p>
 <div class="highlight-python"><pre>Group["3D Skeletons"]
 
     Group["vertices"]
         Dataset["data"] : array, shape (N,3) with spatial location
-        .attrs["affine"] : 2d array, shape (4,4)
-        .attrs["axes_semantics"] = {
+        .attrs["axes_info"] = {
             0 : {"name":"entities"},
             1 : {"name":"spatial location",
-                 "column": {
-                    0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                    1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                    2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                 "label": {
+                    0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                    1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                    2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
                  } } }
 
         Group["properties"]
             Dataset["type"] array, shape (N,1)
-            .attrs["semantics"] = {
+            .attrs["value"] = {
                 1 : {"name" : "skeleton node"},
-                2 : {"name" : "connector  node"}
+                2 : {"name" : "connector node"}
             }
 
         Group["connectivity"]
             Dataset["data"] array, shape (M,2)
             -&gt; stores the connectivity between vertices in 0-indexed (global topology) array
-            .attrs["semantics"] = {
+            .attrs["axes_info"] = {
                 0 : {"name":"entities"},
                 1 : {"name":"connections",
-                     "column" : {
+                     "label" : {
                         0 : {"name" : "from"},
                         1 : {"name" : "to"},
-                     },
-                     "directed" : False
+                     }
                     }
             }
             Group["properties"]
                 Dataset["type"] array, shape (M,1)
-                .attrs["semantics"] = {
+                .attrs["value"] = {
                     1 : {"name" : "axonal arbor"},
                     2 : {"name" : "dendritic arbor"},
                     3 : {"name" : "cell body"},
@@ -231,33 +219,6 @@ Or are the axes semantics in this case refering to the array axes?</li>
                 }
                 Dataset["id"] array, shape (M,1)</pre>
 </div>
-<p>Example code to create the dataset node:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">h5py</span>
-<span class="n">myfile</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s">&#39;ff.h5&#39;</span><span class="p">)</span>
-
-<span class="n">dset</span> <span class="o">=</span> <span class="n">myfile</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s">&quot;3D Skeletons&quot;</span><span class="p">)</span>
-<span class="n">vert</span> <span class="o">=</span> <span class="n">dset</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s">&quot;vertices&quot;</span><span class="p">)</span>
-
-<span class="n">vert</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">)))</span>
-
-<span class="n">vert</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s">&quot;properties&quot;</span><span class="p">)</span>
-<span class="n">vert</span><span class="p">[</span><span class="s">&quot;properties&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s">&quot;labels&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,(</span><span class="mi">10</span><span class="p">,)))</span>
-<span class="n">vert</span><span class="p">[</span><span class="s">&quot;properties&quot;</span><span class="p">][</span><span class="s">&quot;labels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s">&quot;semantics&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
-    <span class="mi">1</span> <span class="p">:</span> <span class="p">{</span><span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;axonal arbor&quot;</span><span class="p">},</span>
-    <span class="mi">2</span> <span class="p">:</span> <span class="p">{</span><span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;dendritic arbor&quot;</span><span class="p">},</span>
-    <span class="mi">3</span> <span class="p">:</span> <span class="p">{</span><span class="s">&quot;name&quot;</span> <span class="p">:</span> <span class="s">&quot;cell body&quot;</span><span class="p">}</span> <span class="p">})</span>
-
-<span class="n">vert</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s">&quot;grouping&quot;</span><span class="p">)</span>
-<span class="n">vert</span><span class="p">[</span><span class="s">&quot;grouping&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s">&quot;index&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">200</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">300</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">]]))</span>
-
-<span class="n">con</span> <span class="o">=</span> <span class="n">vert</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s">&quot;connectivity&quot;</span><span class="p">)</span>
-<span class="n">con</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s">&quot;data&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
-
-<span class="n">myfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="set-of-3d-triangular-surfaces">
 <h3>Set of 3D triangular surfaces<a class="headerlink" href="#set-of-3d-triangular-surfaces" title="Permalink to this headline">¶</a></h3>
@@ -266,19 +227,18 @@ Or are the axes semantics in this case refering to the array axes?</li>
 
     Group["vertices"]
         Dataset["data"] : array, shape (N,3) with spatial location
-        .attrs["affine"] : 2d array, shape (4,4)
-        .attrs["axes_semantics"] = {
-            0 : {"name":"entities"},
+        .attrs["axes_info"] = {
+            0 : {"name":"points"},
             1 : {"name":"spatial location",
-                 "column": {
-                    0 : { "name" : "x", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                    1 : { "name" : "y", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
-                    2 : { "name" : "z", "unit" : {"name": "meter", "OBO" : "UO:0000008"} },
+                 "labels": {
+                    0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                    1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                    2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
                  } } }
 
         Group["properties"]
             Dataset["type"] : array, shape (N,1)
-            .attrs["semantics"] = {
+            .attrs["value"] = {
                 1 : {"name" : "axonal arbor"},
                 2 : {"name" : "dendritic arbor"},
                 3 : {"name" : "cell body"}
@@ -288,9 +248,9 @@ Or are the axes semantics in this case refering to the array axes?</li>
         Group["connectivity"]
             Dataset["data"] : array, shape (M,3)
             -&gt; global topology of triangular faces. find local topology by subtracting min()
-            .attrs["semantics"] = {
+            .attrs["axes_info"] = {
                 0 : {"name": "entities" },
-                1 : {"name": "triangular faces", "directed" : False }
+                1 : {"name": "triangular faces" }
             }
             Group["properties"]
                 Dataset["type"] : array, shape (M,1)
