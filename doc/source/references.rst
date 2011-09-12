@@ -42,3 +42,10 @@ Climate and Forecast formats
 General
 -------
 * `HDF5 forum <http://hdf-forum.184993.n3.nabble.com/>`_
+
+Global object model
+-------------------
+
+* `Object Model for Neuroinformatics <http://code.google.com/p/incf-omni/>`_
+
+* `Common Data Model for Neuroscience Data and Data Model Exchange <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC134589/>`_
