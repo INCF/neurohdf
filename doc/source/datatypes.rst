@@ -3,7 +3,7 @@
 Variety of neuroscience dataset types
 -------------------------------------
 
-If you think a basic dataset type is missing, `please add them <https://github.com/unidesigner/neurohdf/issues/1>`_!
+If you think a basic dataset type is missing, `please add them <https://github.com/INCF/neurohdf/issues/1>`_!
 
 Anatomy
 ^^^^^^^
@@ -31,7 +31,8 @@ Anatomy
 
 Microscopy
 ``````````
-Standardized, open formats:
+Standardized, open formats
+
 * Open Microscopy Environment (OME): `Metadata matters: access to image data in the real world <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed>`_
 
 Simulation
