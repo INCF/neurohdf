@@ -122,18 +122,15 @@ to the coordinate system defined by the region.</p>
 <p>A data block with at least one spatial dimension. It may have temporal dimensions. There are usually
 additional dimensions (trials, channels, subjects etc.). All information about the axes are stored
 as metadata.</p>
-<p>The affine represents the transformation from voxel space to the <em>Region</em> space.
-If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, shears.
-for 2 spatial axes, the affine has shape (3,3). The zooms define the spatial resolution.
-Individual components <a class="reference external" href="https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py">can be extracted</a>.</p>
-<p>The <em>axes_info</em> refers to the output of the affine transformation. The spatial axes (kind: spatial)
-should be aligned with the corresponding spatial axes of the <em>Region</em>. They should be be ordered, i.e.
-the first spatial axes of the <em>Region</em> corresponds to the axis with index 1 in our case.</p>
-<p>Open Questions:</p>
-<ul class="simple">
-<li>When rotation occurs in the affine transformation, the semantics of pre/post transformation could be changed.
-Otherwise, with only scaling and translation, they are expected to stay invariant.</li>
-</ul>
+<p>Because an affine transformation allows for axes flipping, rotation, or shear operation, which
+would invalidate the semantics of the <em>Region</em> space, scaling (i.e. zooms defining the
+spatial resolution of the voxels/pixels) and translation are specified seperately.</p>
+<p>The spatial axes (kind: spatial) are in correspondence with the ordering of the
+elements of the scaling and translation arrays. For instance, dimensions 2,3 and 4
+(with index 1,2 and 3) correspond to the first, second and third element of the
+scaling and translation array. Similarly, the ordering is in correspondence with the
+Region axes, i.e. the first spatial axes of the <em>Region</em> corresponds to the axis with index 1
+in our example case.</p>
 <p>NeuroHDF node:</p>
 <div class="highlight-python"><pre>Group["My regular dataset"]
 
@@ -144,7 +141,8 @@ Otherwise, with only scaling and translation, they are expected to stay invarian
         Dataset["data"] : byte array, shape (N,1) storing the XML document
 
     Dataset["data"] : nd array
-    .attrs["affine"] : 2d array, shape (4,4) for 3 spatial axes
+    .attrs["scaling"] : 1d array, shape (3,1) for 3 spatial axes
+    .attrs["translation"] : 1d array, shape (3,1) for 3 spatial axes
     .attrs["axes_info"] = {
         0 : {"name" : "t",
              "unit" : {"name": "millisecond", "ref" : "http://purl.obolibrary.org/obo/UO_0000028"},
@@ -160,7 +158,9 @@ Otherwise, with only scaling and translation, they are expected to stay invarian
              "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"},
              "kind" : "spatial" },
         4 : {"name" : "r",
-             "desc" : "Red channel measurement"},
+             "desc" : "Red channel measurement",
+             "vmin" : "0",
+             "vmax" : "256" },
         5 : {"name" : "g",
              "desc" : "Green channel measurement"},
         6 : {"name" : "b",

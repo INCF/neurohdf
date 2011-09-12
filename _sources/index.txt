@@ -14,9 +14,10 @@ and management. It is **not** yet another file format. In particular, the aims a
 
  * provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
    regular or irregular geometry, map them to a spatial reference system and define metadata
- * propose a convention on how to express metadata for generic datasets using `JSON <http://www.json.org/>`_ and
-   identifiers from `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
  * integrate existing domain-specific XML schemas with HDF5
+ * propose a convention on how to express array metadata using `JSON <http://www.json.org/>`_ and
+   identifiers from `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
+ * define an API for at least Python, Matlab and Java languages
 
 Contents:
 

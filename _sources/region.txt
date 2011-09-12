@@ -96,4 +96,6 @@ number of dimensions, but it requires to have at least one spatial dimension to 
 of a *Region*. For the affine of a Regular dataset, only the spatial dimension of the array are relevant
 for the embedding within the *Region*.
 
+Individual components of the affine transformation `can be extracted <https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py>`_.
+
 See section :ref:`spatiotempo`  for details on the dataset representation.

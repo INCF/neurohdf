@@ -20,20 +20,16 @@ A data block with at least one spatial dimension. It may have temporal dimension
 additional dimensions (trials, channels, subjects etc.). All information about the axes are stored
 as metadata.
 
+Because an affine transformation allows for axes flipping, rotation, or shear operation, which
+would invalidate the semantics of the *Region* space, scaling (i.e. zooms defining the
+spatial resolution of the voxels/pixels) and translation are specified seperately.
 
-The affine represents the transformation from voxel space to the *Region* space.
-If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, shears.
-for 2 spatial axes, the affine has shape (3,3). The zooms define the spatial resolution.
-Individual components `can be extracted <https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py>`_.
-
-The *axes_info* refers to the output of the affine transformation. The spatial axes (kind: spatial)
-should be aligned with the corresponding spatial axes of the *Region*. They should be be ordered, i.e.
-the first spatial axes of the *Region* corresponds to the axis with index 1 in our case.
-
-Open Questions:
-
-* When rotation occurs in the affine transformation, the semantics of pre/post transformation could be changed.
-  Otherwise, with only scaling and translation, they are expected to stay invariant.
+The spatial axes (kind: spatial) are in correspondence with the ordering of the
+elements of the scaling and translation arrays. For instance, dimensions 2,3 and 4
+(with index 1,2 and 3) correspond to the first, second and third element of the
+scaling and translation array. Similarly, the ordering is in correspondence with the
+Region axes, i.e. the first spatial axes of the *Region* corresponds to the axis with index 1
+in our example case.
 
 NeuroHDF node::
 
@@ -46,7 +42,8 @@ NeuroHDF node::
             Dataset["data"] : byte array, shape (N,1) storing the XML document
 
         Dataset["data"] : nd array
-        .attrs["affine"] : 2d array, shape (4,4) for 3 spatial axes
+        .attrs["scaling"] : 1d array, shape (3,1) for 3 spatial axes
+        .attrs["translation"] : 1d array, shape (3,1) for 3 spatial axes
         .attrs["axes_info"] = {
             0 : {"name" : "t",
                  "unit" : {"name": "millisecond", "ref" : "http://purl.obolibrary.org/obo/UO_0000028"},
@@ -62,7 +59,9 @@ NeuroHDF node::
                  "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"},
                  "kind" : "spatial" },
             4 : {"name" : "r",
-                 "desc" : "Red channel measurement"},
+                 "desc" : "Red channel measurement",
+                 "vmin" : "0",
+                 "vmax" : "256" },
             5 : {"name" : "g",
                  "desc" : "Green channel measurement"},
             6 : {"name" : "b",
