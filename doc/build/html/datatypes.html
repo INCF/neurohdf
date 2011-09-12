@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Variety of neuroscience dataset types &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/navy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
+    <link rel="next" title="Contact" href="contact.html" />
+    <link rel="prev" title="Further reading" href="references.html" />
+ 
+<script type="text/javascript">
+
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17713054-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script');
+   ga.src = ('https:' == document.location.protocol ?
+             'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   ga.setAttribute('async', 'true');
+   document.documentElement.firstChild.appendChild(ga);
+ })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="references.html" title="Further reading"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Variety of neuroscience dataset types</a><ul>
+<li><a class="reference internal" href="#anatomy">Anatomy</a><ul>
+<li><a class="reference internal" href="#microscopy">Microscopy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#simulation">Simulation</a></li>
+<li><a class="reference internal" href="#behavior">Behavior</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#physiology">Physiology</a></li>
+<li><a class="reference internal" href="#genomics-proteomics">Genomics/Proteomics</a></li>
+<li><a class="reference internal" href="#neuroimaging">Neuroimaging</a><ul>
+<li><a class="reference internal" href="#nirs-dataset">NIRS dataset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="references.html"
+                        title="previous chapter">Further reading</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contact.html"
+                        title="next chapter">Contact</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="variety-of-neuroscience-dataset-types">
+<span id="datatypes"></span><h1>Variety of neuroscience dataset types<a class="headerlink" href="#variety-of-neuroscience-dataset-types" title="Permalink to this headline">¶</a></h1>
+<p>If you think a basic dataset type is missing, <a class="reference external" href="https://github.com/unidesigner/neurohdf/issues/1">please add them</a>!</p>
+<div class="section" id="anatomy">
+<h2>Anatomy<a class="headerlink" href="#anatomy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Reconstructed skeletonized microcircuitry from electron microscopy<ul>
+<li>Sets of irregular 3D skeletons in a spatial reference system</li>
+<li>Sets of connectors with location representing synapses connecting vertices of the 3D skeletons</li>
+</ul>
+</li>
+<li>Dense reconstruction of neuropile from electron microscopy<ul>
+<li>Regular 3D grid segmenting the structures in a spatial reference system</li>
+<li>Sets of area lists representing structures</li>
+<li>Sets of surface meshes representing structures</li>
+</ul>
+</li>
+<li>Confocal optical microcopy imaging<ul>
+<li>Sets of regular 2D grid images with multiple channels</li>
+</ul>
+</li>
+<li>Network of brain regions and their connectivity</li>
+<li>Network of neurons and their connectivity (circuit diagram)</li>
+<li>Network of neuron classes and their connection probability (circuit diagram)</li>
+</ul>
+<div class="section" id="microscopy">
+<h3>Microscopy<a class="headerlink" href="#microscopy" title="Permalink to this headline">¶</a></h3>
+<p>Standardized, open formats:
+* Open Microscopy Environment (OME): <a class="reference external" href="http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed">Metadata matters: access to image data in the real world</a></p>
+</div>
+</div>
+<div class="section" id="simulation">
+<h2>Simulation<a class="headerlink" href="#simulation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Biophysically realistic simulation of voltage across a neuronal morphology<ul>
+<li>Irregular 3D skeleton consisting of vertices and connectivity (segments)</li>
+<li>Properties on the vertices and/or segments such as ion channel distributions etc.</li>
+<li>Group of multiple trials with different initial condition and stimulation parameters<ul>
+<li>(Segment, time) array with voltage values across time.</li>
+<li>(Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Spiking network simulation with point neurons</li>
+</ul>
+</div>
+<div class="section" id="behavior">
+<h2>Behavior<a class="headerlink" href="#behavior" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Behavioral experiments of tracked animals moving on a 2D plate<ul>
+<li>Irregular spatio-temporal data in a spatial reference system</li>
+</ul>
+</li>
+<li>Questionnaire results</li>
+</ul>
+</div>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Cell lineages: Cell division, differentiation and migration data in 3D</li>
+</ul>
+</div>
+<div class="section" id="physiology">
+<h2>Physiology<a class="headerlink" href="#physiology" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Neurophysiological extracellular recordings<ul>
+<li>Regular 2D grid (? non spatial) - in concepto-temporal system</li>
+<li>(Unit, time) array of voltage traces</li>
+</ul>
+</li>
+<li>Neurophysiological intracellular recordings</li>
+<li>Spectro-temporal receptive fields</li>
+<li>Functions: Intensity-response function of neurons, Tuning curves, ...</li>
+</ul>
+</div>
+<div class="section" id="genomics-proteomics">
+<h2>Genomics/Proteomics<a class="headerlink" href="#genomics-proteomics" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Gene expression array of genes assayed in a spatial volume
+for a particular genotypic state, physiological state, developmental stage,
+after perturbation with different set of parameters</li>
+</ul>
+</div>
+<div class="section" id="neuroimaging">
+<h2>Neuroimaging<a class="headerlink" href="#neuroimaging" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Functional MRI dataset
+- Regular 3D grid with time steps in spatial reference system</li>
+<li>Structural MRI dataset
+- Regular 3D grid in spatial reference system</li>
+<li>Tractography dataset
+- Irregular 3D data in spatial reference system</li>
+<li>Diffusion MRI dataset
+- Regular 3D grid in spatial reference system with a number of gradient directions
+- Parameters: bvalues, bvectors</li>
+<li>Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
+- Irregular 3D dataset with vertices and triangular faces in spatial reference system
+- (labels,) array with the length of the vertices</li>
+<li>MRI datasets (PET, ...)</li>
+<li>EEG dataset</li>
+<li>MEG dataset</li>
+</ul>
+<div class="section" id="nirs-dataset">
+<h3>NIRS dataset<a class="headerlink" href="#nirs-dataset" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://datasharing.incf.org/ni/NIRS">INCF: Development of a standard file format for NIRS</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="references.html" title="Further reading"
+             >previous</a> |</li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

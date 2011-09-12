@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamic datasets &mdash; NeuroHDF v0.1 documentation</title>
+    <link rel="stylesheet" href="_static/navy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="NeuroHDF v0.1 documentation" href="index.html" />
+ 
+<script type="text/javascript">
+
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17713054-4']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+   var ga = document.createElement('script');
+   ga.src = ('https:' == document.location.protocol ?
+             'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+   ga.setAttribute('async', 'true');
+   document.documentElement.firstChild.appendChild(ga);
+ })();
+
+</script>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dynamic-datasets">
+<span id="dynamic"></span><h1>Dynamic datasets<a class="headerlink" href="#dynamic-datasets" title="Permalink to this headline">¶</a></h1>
+<p>Two approaches to extend static datasets to the temporal domain:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Add another dimension to the dataset array, denoting time</li>
+<li>Add super-node for different time steps where datasets are contained in</li>
+</ul>
+</div></blockquote>
+<p>Both methods have advantages and disadvantages and fit different scenarios. But
+they can also be combined.</p>
+<blockquote>
+<div><p>When the time evolution does not change the dimensionality of the dataset, add time as another dimension to
+the data array. If it does change, introduce scaffolding timepoint group nodes for each time step.
+For variably distanced time steps, it is up to the user/developer to store an property array with the
+time points vs. creating a timepoint scaffold for each timestep with the appropriate metadata information
+about the occurrences. In the scaffolding case, it is suggested to define an identity map between the dimensions
+adjoining the different time points, best with an increasing integer id. Mixing of both types of representation
+should be possible.</p>
+<p>Storing my regular grid of data points</p>
+<p>NeuroHDF node:</p>
+<div class="highlight-python"><pre>Group &lt;SpatioTemporalOrigo&gt;: Metadata: rotation&amp;scale + offset (identity)
+    Group &lt;Grid/regular&gt;: Metadata: affine transformation
+        Dataset &lt;data&gt;
+
+        Group &lt;timeslices&gt;
+            Dataset &lt;t0&gt;
+            Dataset &lt;t1&gt;
+            ...
+
+        or
+
+        Group &lt;slice_t0&gt;
+            Dataset &lt;data&gt;
+        Group &lt;slice_t1&gt;
+            Dataset &lt;data&gt;
+        ....</pre>
+</div>
+<p>A distinction has to be made between the spatial datastructure that changes over time
+vs. the fields defined over the fixed spatial datastructures that change over time.</p>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">NeuroHDF v0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, NeuroHDF Developers.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
