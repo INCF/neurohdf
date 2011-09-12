@@ -10,31 +10,34 @@ NeuroHDF node for a Region::
 
     Group["My Region Name"]
     .attrs["type"] = "Region"
+
+    Group["transform"] : specifies a complex transformation data type
+    --or--
     .attrs["affine"] -> array, shape (4,4) for affine transformation matrix
     .attrs["origin_info"] = {
         "name" : "anterior commisure",
         "ref" : "UMLSCUI:C0152335"
     }
     .attrs["axes_info"] = {
-        0 : { "positive" : {"name" : "right", "ref" : "BSPO:0000007"},
-              "negative" : {"name" : "left", "ref" : "BSPO:0000000"}
+        0 : { "positive" : {"name" : "right", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000007"},
+              "negative" : {"name" : "left", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000000"}
             },
-        1 : { "positive" : {"name" : "anterior", "ref" : "BSPO:0000055"},
-              "negative" : {"name" : "posterior", "ref" : "BSPO:0000025"}
+        1 : { "positive" : {"name" : "anterior", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000055"},
+              "negative" : {"name" : "posterior", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000025"}
             },
-        2 : { "positive" : {"name" : "dorsal", "ref" : "BSPO:0000063"},
-              "negative" : {"name" : "ventral", "ref" : "BSPO:0000068"}
+        2 : { "positive" : {"name" : "dorsal", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000063"},
+              "negative" : {"name" : "ventral", "ref" : "http://purl.obolibrary.org/obo/BSPO_0000068"}
             }
     }
     .attrs["axes_units"] = {
-        0 : {"name" : "x", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
-        1 : {"name" : "y", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
-        2 : {"name" : "z", "unit" : {"name": "mm", "ref" : "UO:0000016"} },
+        0 : {"name" : "x", "unit" : {"name": "mm", "ref" : "http://purl.obolibrary.org/obo/UO_0000016"} },
+        1 : {"name" : "y", "unit" : {"name": "mm", "ref" : "http://purl.obolibrary.org/obo/UO_0000016"} },
+        2 : {"name" : "z", "unit" : {"name": "mm", "ref" : "http://purl.obolibrary.org/obo/UO_0000016"} },
     }
 
     # now, the datasets ...
 
-        Group["Regular data block"] ...
+        Group["My regular dataset"] ...
         Group["3D Skeletons"] ...
         ...
 

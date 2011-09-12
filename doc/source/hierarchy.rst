@@ -13,20 +13,28 @@ First, we create a writable NeuroHDF file::
     import h5py
     myfile = h5py.File('firstfile.neurohdf')
 
-Define global metadata pertaining to the purpose and content of the dataset::
+We need to ensure that the NeuroHDF can be validated in some well-defined sense.
+Therefore, we include metadata as XML instances derived from an XML schema, stored
+as one-dimensional byte arrays.
 
-    myfile.attrs["title"] = "A generic title"
-    myfile.attrs["description"] = "A generic prose description of the content and purpose of the dataset"
-    myfile.attrs["species"] = "The biological organism this dataset is representing in binomial form"
-    myfile.attrs["species"] = {"name" : "Homo sapiens", "NCBI" : "ID...", desc : "..." }
-    myfile.attrs["creator"] = "The creator of the dataset including email"
-    myfile.attrs["collaborators"] = "The collaborators related to the creation of the dataset"
-    myfile.attrs["references"] = "Citation or URL reference for this dataset"
+We define a metadata subgroup from the Root node::
 
-Potentially, XML documents can be integrated into NeuroHDF when storing them as a one-dimensional byte-array.
-Software libraries would be required to parse and update metadata stored in such a way.
+    Group["/"]
+
+        Group["metadata"]
+        .attrs["type"] = "XML" (or JSON, ...)
+        .attrs["schemaNamespace"] : Schema XML namespace identifier
+        .attrs["schemaLocation"] : URL to XSD file
+            Dataset["data"] : byte array, shape (N,1) storing the XML document
+
+For instance, we use the `Dublin Core Metadata Element <http://dublincore.org/documents/dces/>`_.
+The `Datadryad project <http://datadryad.org>`_ is uses this convention for
+metadata annotation.
 
 In NeuroHDF, two classes of datasets are defined: a) spatio-temporal datasets
 mapped to a spatial reference system, and b) generic datasets with data schema as metadata.
+
+Whenever referencing `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
+terms, we use the `standardized PURL URI <http://www.obofoundry.org/id-policy.shtml>`_ to refer to concepts.
 
 We first discuss the :ref:`region`, which is the unifying reference system for spatio-temporal datasets.

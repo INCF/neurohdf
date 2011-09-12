@@ -20,6 +20,7 @@ A data block with at least one spatial dimension. It may have temporal dimension
 additional dimensions (trials, channels, subjects etc.). All information about the axes are stored
 as metadata.
 
+
 The affine represents the transformation from voxel space to the *Region* space.
 If 3 spatial axes exist, it has shape (4,4) for translations, rotations, zooms, shears.
 for 2 spatial axes, the affine has shape (3,3). The zooms define the spatial resolution.
@@ -36,23 +37,29 @@ Open Questions:
 
 NeuroHDF node::
 
-    Group["Regular data block"]
+    Group["My regular dataset"]
+
+        Group["metadata"]
+        .attrs["type"] = "XML" (or JSON, ...)
+        .attrs["schemaNamespace"] : Schema XML namespace identifier
+        .attrs["schemaLocation"] : URL to XSD file
+            Dataset["data"] : byte array, shape (N,1) storing the XML document
 
         Dataset["data"] : nd array
         .attrs["affine"] : 2d array, shape (4,4) for 3 spatial axes
         .attrs["axes_info"] = {
             0 : {"name" : "t",
-                 "unit" : {"name": "millisecond", "ref" : "UO:0000028"},
+                 "unit" : {"name": "millisecond", "ref" : "http://purl.obolibrary.org/obo/UO_0000028"},
                  "sampling frequency" : 256,
                  "kind" : "temporal" },
             1 : {"name" : "x",
-                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"},
                  "kind" : "spatial" },
             2 : {"name" : "y",
-                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"},
                  "kind" : "spatial" },
             3 : {"name" : "z",
-                 "unit" : {"name": "meter", "ref" : "UO:0000008"},
+                 "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"},
                  "kind" : "spatial" },
             4 : {"name" : "r",
                  "desc" : "Red channel measurement"},
@@ -62,7 +69,6 @@ NeuroHDF node::
                  "desc" : "Blue channel measurement"},
             7 : {"name" : "trial"}
         }
-        .attrs["metadata"] : domain and data specific metadata
 
 
 Irregular datasets
@@ -85,9 +91,9 @@ NeuroHDF node::
                 0 : {"name":"entities"},
                 1 : {"name":"spatial location",
                      "label": {
-                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
-                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
-                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
                      } } }
 
             Group["properties"]
@@ -148,9 +154,9 @@ NeuroHDF node::
                 0 : {"name":"points"},
                 1 : {"name":"spatial location",
                      "labels": {
-                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
-                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
-                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "UO:0000008"} },
+                        0 : { "name" : "x", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
+                        1 : { "name" : "y", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
+                        2 : { "name" : "z", "unit" : {"name": "meter", "ref" : "http://purl.obolibrary.org/obo/UO_0000008"} },
                      } } }
 
             Group["properties"]
@@ -184,39 +190,3 @@ NeuroHDF node::
     * How to store connectivity? polygonlines vs. individual lines.
     * need to store contours with holes?
     * individual contours as group vs. set of contours making up a structure with id.
-
-
-    Dynamic datasets
-    ----------------
-
-    When the time evolution does not change the dimensionality of the dataset, add time as another dimension to
-    the data array. If it does change, introduce scaffolding timepoint group nodes for each time step.
-    For variably distanced time steps, it is up to the user/developer to store an property array with the
-    time points vs. creating a timepoint scaffold for each timestep with the appropriate metadata information
-    about the occurrences. In the scaffolding case, it is suggested to define an identity map between the dimensions
-    adjoining the different time points, best with an increasing integer id. Mixing of both types of representation
-    should be possible.
-
-    Storing my regular grid of data points
-
-    NeuroHDF node::
-
-        Group <SpatioTemporalOrigo>: Metadata: rotation&scale + offset (identity)
-            Group <Grid/regular>: Metadata: affine transformation
-                Dataset <data>
-
-                Group <timeslices>
-                    Dataset <t0>
-                    Dataset <t1>
-                    ...
-
-                or
-
-                Group <slice_t0>
-                    Dataset <data>
-                Group <slice_t1>
-                    Dataset <data>
-                ....
-
-    A distinction has to be made between the spatial datastructure that changes over time
-    vs. the fields defined over the fixed spatial datastructures that change over time.

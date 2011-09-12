@@ -4,6 +4,26 @@ Cookbook - Generic datasets
 A proposal for data structures that are not spatio-temporally mapped, such as networks,
 behavioral or simulation results (:ref:`datatypes` for more).
 
+Generic
+-------
+
+A generic dataset structure::
+
+NeuroHDF node::
+
+    Group["Generic dataset"]
+
+        Group["metadata"]
+        .attrs["type"] = "XML" (or JSON, ...)
+        .attrs["schemaNamespace"] : Schema XML namespace identifier
+        .attrs["schemaLocation"] : URL to XSD file
+            Dataset["data"] : byte array, shape (N,1) storing the XML document
+
+        Dataset["data"] : nd array data structure
+         or
+        Group["data"] : complex data structure
+
+
 Networks
 --------
 
