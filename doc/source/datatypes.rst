@@ -49,6 +49,10 @@ Simulation
 
 * Spiking network simulation with point neurons
 
+Software writing HDF5:
+
+* `neuroConstruct <http://www.neuroconstruct.org/>`_
+
 Behavior
 ^^^^^^^^
 
@@ -77,6 +81,11 @@ Physiology
 * Spectro-temporal receptive fields
 
 * Functions: Intensity-response function of neurons, Tuning curves, ...
+
+Software writing HDF5:
+
+* `stimfit <http://code.google.com/p/stimfit/>`_
+
 
 Genomics/Proteomics
 ^^^^^^^^^^^^^^^^^^^
