@@ -62,17 +62,18 @@ the second spatial direction is upwards (y) and the third spatial direction is f
 coordinate system root coordinate system in the following.
 
 The root Region node in the NeuroHDF hierarchy contains an affine transformation that might reorder
-the convention root coordinate system. Note that the semantics given to the coordinate axes (their label) applie
+the convention root coordinate system. Note that the semantics given to the coordinate axes (their label) applied
 to the coordinate axes AFTER the affine transformation from its parent coordinate system.
 
 We use the `OBO Spatial Ontology <http://obofoundry.org/cgi-bin/detail.cgi?id=spatial>`_ as identifiers to complement
 the human-readable string identifiers denoting axes interpretation.
 
-The affine transformation not only specifies the orientation of the axes, but also the location of origo. This corresponds
-to the translation (the translational part of the affine) of origo from the root-convention coordinate system to the Region
-origo. Similarly, we want to know the meaning of origo in the Region coordinate system, such as the anatomically identified
-location in a template atlas. Often, particular neuroanatomical landmarks are used to define the origo. Optimally, they
-should be very stable and recognizable across individuals. For instance, in the Waxholm space, origo is defined at
+The affine transformation not only specifies the orientation of the axes, but also the location of origin. This corresponds
+to the translation (the translational part of the affine) of the origin from the root-convention coordinate system to the Region
+origin. Similarly, we want to know the interpretation of the location of the origin in the Region coordinate system, such as
+the anatomically identified
+location in a template atlas. Often, particular neuroanatomical landmarks are used to define the origin. Optimally, they
+should be very stable and recognizable across individuals. For instance, in the Waxholm space, origin is defined at
 `Bregma <http://en.wikipedia.org/wiki/Bregm>`_
 which is the anatomical point on the skull at which the coronal suture is intersected perpendicularly by the sagittal suture.
 
@@ -80,21 +81,12 @@ Furthermore, the metric unit for unity of each spatial direction is defined. We 
 `OBO Units of measurements Ontology <http://www.obofoundry.org/cgi-bin/detail.cgi?id=unit>`_
 where "milimeter" is identified with "UO:0000016".
 
-.. TODO: How does this relate to the the scaling within the affine?
-
 An optional metadata field specifies an axis-aligned bounding box by two points, where the axes are aligned to the
 axes of the *Region* coordinate system. This basically defines the maximal spatial extent of the *Region*, but it
 is not guaranteed to be correct. As we will see, *Regions* can contain other Regions, but also datasets. These
 datasets can change over time, thus changing in its spatial configuration over time. The bounding-box would then
 either denote the maximum bounding box at the first time frame, or alternatively be the maximum bounding box
 across all time frames.
-
-Each dataset specifies an affine transformation from its embedding *Region* (in addition to the affine specified
-for the Region). The affine for Irregular datasets is the identity when the dataset's spatial location of the vertices
-are already relative to the *Region* coordinate system. For regular datasets, the homogenous array can contain an arbitrary
-number of dimensions, but it requires to have at least one spatial dimension to meaningfully be a child
-of a *Region*. For the affine of a Regular dataset, only the spatial dimension of the array are relevant
-for the embedding within the *Region*.
 
 Individual components of the affine transformation `can be extracted <https://github.com/matthew-brett/transforms3d/blob/master/transforms3d/affines.py>`_.
 
