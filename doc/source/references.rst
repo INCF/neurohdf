@@ -49,3 +49,10 @@ Global object model
 * `Object Model for Neuroinformatics <http://code.google.com/p/incf-omni/>`_
 
 * `Common Data Model for Neuroscience Data and Data Model Exchange <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC134589/>`_
+
+Software tools/libraries using HDF5
+-----------------------------------
+* `neo for electrophysiolog <http://neuralensemble.org/trac/neo/browser/branches/neo0.2/neo/io/hdf5io.py?rev=329>`_
+* `pandas <http://pandas.sourceforge.net/io.html#hdf5-pytables>`_
+* `PyMVPA <http://www.pymvpa.org/generated/mvpa2.base.hdf5.h5save.html>`_
+* `larry <https://github.com/kwgoodman/la/blob/master/la/io.py>`_
