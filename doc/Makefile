@@ -128,3 +128,11 @@ doctest:
 	$(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
 	@echo "Testing of doctests in the sources finished, look at the " \
 	      "results in $(BUILDDIR)/doctest/output.txt."
+
+
+examples2rst:
+	python ../tools/ex2rst \
+			--project NeuroHDF \
+			--outdir $(CURDIR)/source/examples \
+			../examples/validate_neurohdf.py
+	@echo "examples2rst finished."

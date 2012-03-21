@@ -47,7 +47,6 @@ Global object model
 -------------------
 
 * `Object Model for Neuroinformatics <http://code.google.com/p/incf-omni/>`_
-
 * `Common Data Model for Neuroscience Data and Data Model Exchange <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC134589/>`_
 
 Software tools using HDF5
@@ -57,6 +56,7 @@ Python
 * `pandas <http://pandas.sourceforge.net/io.html#hdf5-pytables>`_
 * `PyMVPA <http://www.pymvpa.org/generated/mvpa2.base.hdf5.h5save.html>`_
 * `larry <https://github.com/kwgoodman/la/blob/master/la/io.py>`_
+* `ilastik <http://ilastik.org>`_
 
 Java
 * `neuroConstruct <http://www.neuroconstruct.org/api-latest/api/ucl/physiol/neuroconstruct/neuroml/hdf5/package-summary.html>`_

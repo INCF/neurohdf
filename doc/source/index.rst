@@ -9,26 +9,28 @@ interoperability of software tools `are needed <http://incf.org/programs>`_.
 "`Hierarchical Data Format (HDF5) <http://www.hdfgroup.org/HDF5/>`_ is a data model, library, and file format for storing and managing data.
 It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data."
 
-NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for neuroscience data and metadata storage
-and management. It is **not** yet another file format. In particular, the aims are to:
+NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for
+neuroscience datasets through a simple object model of regular and irregular
+datasets. Whenever data comes in array form, storage and I/O using HDF5 is
+very efficient. But this is usually not enough to capture the rich semantic
+metadata about datasets. Several approaches for metadata representation are
+developed in different communities usually based on XML or databases
+(relational, graph-based, document-based, key/value stores, triple stores).
+Developing these domain-specific object models can be decoupled from the
+pure data array storage using references.
 
- * provide a recommendation on how to hierarchically represent spatio-temporal datasets with an underlying
-   regular or irregular geometry, map them to a spatial reference system and define metadata
- * integrate existing domain-specific XML schemas with HDF5
- * propose a convention on how to express array metadata using `JSON <http://www.json.org/>`_ and
-   identifiers from `Open Biological and Biomedical Ontologies <http://obofoundry.org/>`_
- * define an API for at least Python, Matlab and Java languages
+
+
 
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
+   :glob:
 
-   hierarchy
-   region
-   cookbook_spatiotempo
-   cookbook_generic
+   examples/*
+
    evaluatehdf
    references
    datatypes
-   contact
+   oldideas
