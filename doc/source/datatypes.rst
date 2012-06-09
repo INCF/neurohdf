@@ -35,57 +35,11 @@ Standardized, open formats
 
 * Open Microscopy Environment (OME): `Metadata matters: access to image data in the real world <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed>`_
 
-Simulation
-^^^^^^^^^^
-
-* Biophysically realistic simulation of voltage across a neuronal morphology
-
-  * Irregular 3D skeleton consisting of vertices and connectivity (segments)
-  * Properties on the vertices and/or segments such as ion channel distributions etc.
-  * Group of multiple trials with different initial condition and stimulation parameters
-
-    * (Segment, time) array with voltage values across time.
-    * (Stimulus, time) array representing the stimulus applied at specific timepoints, e.g. to segments
-
-* Spiking network simulation with point neurons
-
-Software writing HDF5:
-
-* `neuroConstruct <http://www.neuroconstruct.org/>`_
-
-Behavior
-^^^^^^^^
-
-* Behavioral experiments of tracked animals moving on a 2D plate
-
-  * Irregular spatio-temporal data in a spatial reference system
-
-* Questionnaire results
-
 
 Development
 ^^^^^^^^^^^
 
 * Cell lineages: Cell division, differentiation and migration data in 3D
-
-Physiology
-^^^^^^^^^^
-
-* Neurophysiological extracellular recordings
-
-  * Regular 2D grid (? non spatial) - in concepto-temporal system
-  * (Unit, time) array of voltage traces
-
-* Neurophysiological intracellular recordings
-
-* Spectro-temporal receptive fields
-
-* Functions: Intensity-response function of neurons, Tuning curves, ...
-
-Software writing HDF5:
-
-* `stimfit <http://code.google.com/p/stimfit/>`_
-
 
 Genomics/Proteomics
 ^^^^^^^^^^^^^^^^^^^

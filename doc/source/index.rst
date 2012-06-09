@@ -10,22 +10,34 @@ interoperability of software tools `are needed <http://incf.org/programs>`_.
 It supports an unlimited variety of datatypes, and is designed for flexible and efficient I/O and for high volume and complex data."
 
 NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for
-neuroscience datasets through a simple object model of regular and irregular
-datasets. Whenever data comes in array form, storage and I/O using HDF5 is
-very efficient. But this is usually not enough to capture the rich semantic
-metadata about datasets. Several approaches for metadata representation are
-developed in different communities usually based on XML or databases
-(relational, graph-based, document-based, key/value stores, triple stores).
-Developing these domain-specific object models can be decoupled from the
-pure data array storage using references.
+neuroscience datasets through the specification of a simple layout for different
+data types with minimal :ref:`metadata` metadata requirements.
 
 
++-----------------------+---------------------------------------------+
+| .. image::            | :ref:`neuralcircuit`                        |
++-----------------------+---------------------------------------------+
+| .. image:: waves.png  | :ref:`ndarray`                              |
++-----------------------+---------------------------------------------+
+| .. image:: waves.png  | :ref:`multiscale`                           |
++-----------------------+---------------------------------------------+
+| .. image:: peak.png   | :ref:`electrophysiology`                    |
++-----------------------+---------------------------------------------+
+| .. image:: peak.png   | :ref:`surface`                              |
++-----------------------+---------------------------------------------+
+| .. image:: peak.png   | :ref:`behavior`                             |
++-----------------------+---------------------------------------------+
+| .. image:: peak.png   | :ref:`simulation`                           |
++-----------------------+---------------------------------------------+
+| .. image:: peak.png   | :ref:`serialimages`                         |
++-----------------------+---------------------------------------------+
 
+.. |                       | blubb                                       |
 
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :glob:
 
    examples/*
