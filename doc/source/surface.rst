@@ -1,5 +1,0 @@
-.. _surface:
-
-Surface dataset
-===============
-

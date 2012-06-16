@@ -3,15 +3,8 @@
 Variety of neuroscience dataset types
 -------------------------------------
 
-If you think a basic dataset type is missing, `please add them <https://github.com/INCF/neurohdf/issues/1>`_!
-
 Anatomy
 ^^^^^^^
-
-* Reconstructed skeletonized microcircuitry from electron microscopy
-
-  * Sets of irregular 3D skeletons in a spatial reference system
-  * Sets of connectors with location representing synapses connecting vertices of the 3D skeletons
 
 * Dense reconstruction of neuropile from electron microscopy
 
@@ -19,21 +12,11 @@ Anatomy
   * Sets of area lists representing structures
   * Sets of surface meshes representing structures
 
-* Confocal optical microcopy imaging
-
-  * Sets of regular 2D grid images with multiple channels
-
 * Network of brain regions and their connectivity
 
 * Network of neurons and their connectivity (circuit diagram)
 
 * Network of neuron classes and their connection probability (circuit diagram)
-
-Microscopy
-``````````
-Standardized, open formats
-
-* Open Microscopy Environment (OME): `Metadata matters: access to image data in the real world <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed>`_
 
 
 Development
@@ -48,32 +31,5 @@ Genomics/Proteomics
   for a particular genotypic state, physiological state, developmental stage,
   after perturbation with different set of parameters
 
-Neuroimaging
-^^^^^^^^^^^^
-
-* Functional MRI dataset
-  - Regular 3D grid with time steps in spatial reference system
-
-* Structural MRI dataset
-  - Regular 3D grid in spatial reference system
-
 * Tractography dataset
   - Irregular 3D data in spatial reference system
-
-* Diffusion MRI dataset
-  - Regular 3D grid in spatial reference system with a number of gradient directions
-  - Parameters: bvalues, bvectors
-
-* Reconstructed macroscale surfaces of cortical and subcortical structures with atlas labels
-  - Irregular 3D dataset with vertices and triangular faces in spatial reference system
-  - (labels,) array with the length of the vertices
-
-* MRI datasets (PET, ...)
-
-* EEG dataset
-
-* MEG dataset
-
-NIRS dataset
-````````````
-`INCF: Development of a standard file format for NIRS <http://datasharing.incf.org/ni/NIRS>`_

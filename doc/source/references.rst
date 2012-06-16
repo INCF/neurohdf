@@ -33,6 +33,10 @@ Visualization formats
 
 * `Introduction to HDF5 and F5 <http://sciviz.cct.lsu.edu/projects/vish/introduction_hdf5_f5.pdf>`_
 
+Microscopy formats and metadata
+-------------------------------
+
+* Open Microscopy Environment (OME): `Metadata matters: access to image data in the real world <http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2878938/?tool=pubmed>`_
 
 Climate and Forecast formats
 ----------------------------
@@ -51,13 +55,20 @@ Global object model
 
 Software tools using HDF5
 -------------------------
+
 Python
+^^^^^^
 * `neo for electrophysiolog <http://neuralensemble.org/trac/neo/browser/branches/neo0.2/neo/io/hdf5io.py?rev=329>`_
 * `pandas <http://pandas.sourceforge.net/io.html#hdf5-pytables>`_
 * `PyMVPA <http://www.pymvpa.org/generated/mvpa2.base.hdf5.h5save.html>`_
 * `larry <https://github.com/kwgoodman/la/blob/master/la/io.py>`_
 * `ilastik <http://ilastik.org>`_
+* `stimfit <http://code.google.com/p/stimfit/>`_
 
 Java
+^^^^
 * `neuroConstruct <http://www.neuroconstruct.org/api-latest/api/ucl/physiol/neuroconstruct/neuroml/hdf5/package-summary.html>`_
 
+Matlab
+^^^^^^
+* `Matlab natively supports HDF5 <http://www.mathworks.ch/help/techdoc/ref/hdf5.html>`_

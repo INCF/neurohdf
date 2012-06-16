@@ -1,6 +1,0 @@
-Contact
-=======
-
-`Please get in touch`_ if you are interested in NeuroHDF.
-
-.. _Please get in touch: connectome AT unidesign DOT ch

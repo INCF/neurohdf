@@ -11,38 +11,21 @@ It supports an unlimited variety of datatypes, and is designed for flexible and 
 
 NeuroHDF is an effort to combine the flexibility and efficiency of HDF5 for
 neuroscience datasets through the specification of a simple layout for different
-data types with minimal :ref:`metadata` metadata requirements.
-
-
-+-----------------------+---------------------------------------------+
-| .. image::            | :ref:`neuralcircuit`                        |
-+-----------------------+---------------------------------------------+
-| .. image:: waves.png  | :ref:`ndarray`                              |
-+-----------------------+---------------------------------------------+
-| .. image:: waves.png  | :ref:`multiscale`                           |
-+-----------------------+---------------------------------------------+
-| .. image:: peak.png   | :ref:`electrophysiology`                    |
-+-----------------------+---------------------------------------------+
-| .. image:: peak.png   | :ref:`surface`                              |
-+-----------------------+---------------------------------------------+
-| .. image:: peak.png   | :ref:`behavior`                             |
-+-----------------------+---------------------------------------------+
-| .. image:: peak.png   | :ref:`simulation`                           |
-+-----------------------+---------------------------------------------+
-| .. image:: peak.png   | :ref:`serialimages`                         |
-+-----------------------+---------------------------------------------+
-
-.. |                       | blubb                                       |
-
-Contents:
+data types with minimal :ref:`metadata`. The *NeuroHDF Interest Group* consists
+of the members of `this group <https://groups.google.com/forum/#!forum/neurohdf-interest-group>`_.
 
 .. toctree::
    :maxdepth: 1
    :glob:
 
-   examples/*
+   types/neuralcircuit
+   types/ndarray
+   types/multiscale
+   types/physiology
+   types/surface
+   types/behavior
+   types/simulation
+   types/serialimages
 
    evaluatehdf
    references
-   datatypes
-   oldideas
