@@ -17,6 +17,8 @@ Biological image formats
 
 * `Bio-Formats Java Library <http://www.loci.wisc.edu/software/bio-formats>`_
 
+* `A HDF5 I/O plugin for ImageJ <http://lmb.informatik.uni-freiburg.de/resources/opensource/imagej_plugins/hdf5.html>`_
+
 Neuroimaging formats
 --------------------
 

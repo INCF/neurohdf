@@ -3,7 +3,9 @@
 N-dimensional, homogeneous arrays
 =================================
 
-<Text and example dataset>
+By using a simple convention to describe metadata about the array axes,
+basic information is available to make sensible interpretation of the array's
+content.
 
 Useful for neuroscience data types
 ----------------------------------
@@ -19,10 +21,12 @@ Useful for neuroscience data types
 Tool supporting this specification
 ----------------------------------
 
-None so far.
+None so far. A `zebra fish dataset <http://vibez.informatik.uni-freiburg.de/>`_ available
+as HDF5 files uses a similar specification for axes units.
 
 Example generation
 ------------------
 
 .. raw:: html
 
+   <script src="https://gist.github.com/3006152.js"> </script>
